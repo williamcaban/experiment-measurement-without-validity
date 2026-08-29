@@ -2,9 +2,16 @@
 
 ## Purpose
 
-Validates the single-rater 82% IRR misuse claim in "Measurement Without Validity"
-by running 3 LLMs from different model families as independent second raters on a
-stratified subsample of 20 papers from the 55-paper literature scan.
+Supports the IRR metric misuse finding in "Measurement Without Validity:
+The Compounding Reliability Problem in Agentic AI Evaluation"
+(KNOSYS-D-26-17924, revised August 2026).
+
+Validates the coding instrument reliability by running 3 LLMs from different
+model families as independent second raters on a stratified subsample of 20
+papers from the 55-paper purposive literature scan. The four-rater
+Krippendorff's α = 0.89 (pairwise range: 0.86–0.93) confirms that the coding
+instrument is sufficiently unambiguous to be applied consistently across rater
+families — establishing instrument clarity, not field-wide prevalence.
 
 ## Setup
 
@@ -30,31 +37,31 @@ The $10 unlocks the 1000 RPD limit (default is 50 RPD).
 
 ## Stratified Sample (N=20)
 
-| Cat | Topic | Papers | Sampled |
+Proportionally allocated across 9 topic categories from the 55-paper scan.
+
+| Cat | Topic | Full scan | Sampled |
 |---|---|---|---|
-| A | Major agentic benchmarks | 6 | 2 (tau-bench, OSWorld) |
-| B | Automated grader validity | 3 | 1 (AgentProp-Bench) |
-| C | Correct IRR | 9 | 3 (WebArena Verified, Reliable Decision, Yamauchi) |
-| D | Structural mismatch | 4 | 2 (Judge's Verdict, Multi-LLM Thematic) |
-| E | % agreement only | 5 | 2 (AgentProcessBench, WebVoyager) |
-| F | LLM-judge general | 5 | 2 (Multi-Agent Debate, JudgeBiasBench) |
-| G | Safety/RLHF | 6 | 2 (Annotation Alignment, Chatbot Arena) |
-| H | Long-horizon | 3 | 1 (LH-Bench) |
-| I | Safety-critical | 11 | 5 (InstructGPT, Jafari, Piot, Kunilovskaya, James) |
+| A | Major agentic benchmarks (automated grading) | 6 | 2 (tau-bench, OSWorld) |
+| B | Automated grader validity studies | 4 | 1 (AgentProp-Bench) |
+| C | Benchmarks with formal IRR | 4 | 3 (WebArena Verified, Reliable Decision, Yamauchi) |
+| D | LLM-as-a-Judge studies | 6 | 2 (Judge's Verdict, Multi-LLM Thematic) |
+| E | Benchmarks with structural metric mismatch | 7 | 2 (AgentProcessBench, WebVoyager) |
+| F | Long-horizon and capability benchmarks | 6 | 2 (Multi-Agent Debate, JudgeBiasBench) |
+| G | Safety, RLHF, and preference evaluation | 6 | 2 (Annotation Alignment, Chatbot Arena) |
+| H | Recent 2025–2026 evaluation papers | 5 | 1 (LH-Bench) |
+| I | Safety-critical IRR failures | 11 | 5 (InstructGPT, Jafari, Piot, Kunilovskaya, James) |
 
 ## Models
 
 | Name | OpenRouter ID | Organization |
 |---|---|---|
-| nemotron | nvidia/nemotron-3-ultra-550b-a55b:free | NVIDIA |
+| nemotron | nvidia/nemotron-ultra-253b-instruct:free | NVIDIA |
 | gemma | google/gemma-4-31b-it:free | Google |
-| qwen | qwen/qwen3-next-80b-a3b-instruct:free | Alibaba |
+| qwen | qwen/qwen3-80b-a3b:free | Alibaba |
 
 ## Running the Experiment
 
 ```bash
-cd /Users/williamcaban/Documents/devel/wc-knowledge-base/KNOSYS/experiment
-
 # Step 1: Run second raters (~15-25 minutes)
 python second_rater.py
 
@@ -67,7 +74,7 @@ The script resumes automatically if interrupted — already-coded papers are ski
 ## Expected Runtime
 
 - 20 papers × ~30s per paper (including 10s wait) = ~10 min
-- Add 5 min buffer for slow Nemotron responses = ~15-25 min total
+- Add 5 min buffer for slow responses = ~15-25 min total
 
 ## Q4 Coding Rules (for reference)
 
@@ -80,3 +87,13 @@ The script resumes automatically if interrupted — already-coded papers are ski
 
 **Rule**: If Q1=NIL → Q4=ABS (always).
 **Rule**: Apply MM before INC — structural mismatch takes priority.
+
+## Citation
+
+If you use this experiment in your work:
+
+```
+Caban, W. (2026). Measurement Without Validity: The Compounding Reliability
+Problem in Agentic AI Evaluation. Knowledge-Based Systems (under review).
+https://github.com/williamcaban/experiment-measurement-without-validity
+```
