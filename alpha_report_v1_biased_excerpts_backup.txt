@@ -1,0 +1,54 @@
+============================================================
+SECOND-RATER IRR EXPERIMENT — RESULTS
+============================================================
+Papers coded:  20
+Raters:        author, nemotron, gemma, qwen
+
+── Krippendorff's α (Q4: Structural Validity) ──
+  4-way α (all raters):  0.886
+  Threshold (exploratory): ≥ 0.67
+  ✓ MEETS exploratory threshold
+
+── Pairwise α ──
+  author↔gemma                   α = 0.929
+  author↔nemotron                α = 0.901
+  author↔qwen                    α = 0.930
+  gemma↔qwen                     α = 0.859
+  nemotron↔gemma                 α = 0.901
+  nemotron↔qwen                  α = 0.901
+
+── Per-Paper Q4 Codes ──
+Paper                           Auth  Nemo  Gemm  Qwen   Maj  Con
+-----------------------------------------------------------------
+A1-taubench                      ABS   ABS   ABS   ABS   ABS    ✓
+A2-osworld                       ABS   ABS   ABS   ABS   ABS    ✓
+B1-agentprop                      OK   INC    OK    OK    OK    ✓
+C1-webarena-verified              OK    OK    OK    OK    OK    ✓
+C4-reliable-decision              OK     ?    OK    OK    OK    ✓
+C5-yamauchi                       OK     ?    OK    MM    OK    △
+D1-judges-verdict                 MM     ?   INC    MM    MM    △
+D2-multi-llm-thematic             MM    MM    MM    MM    MM    ✓
+E1-agentprocessbench             INC   INC   INC   INC   INC    ✓
+E3-webvoyager                    INC   INC   INC   INC   INC    ✓
+F3-multiagent-debate             ABS   ABS   ABS   ABS   ABS    ✓
+F4-judgebiasbench                ABS   ABS   ABS   ABS   ABS    ✓
+G1-annotation-alignment          ABS   ABS   ABS   ABS   ABS    ✓
+G2-chatbot-arena                 ABS   ABS   ABS   ABS   ABS    ✓
+H1-lhbench                        MM    MM    MM    MM    MM    ✓
+I0-instructgpt                   INC   INC   INC   INC   INC    ✓
+I1-jafari                         OK     ?    OK    OK    OK    ✓
+I2-piot-xrr                      ABS   ABS   ABS   ABS   ABS    ✓
+I3-kunilovskaya                  ABS   ABS   ABS   ABS   ABS    ✓
+I4-james                         ABS   ABS   ABS   ABS   ABS    ✓
+
+── Prevalence (Q4 distribution) ──
+  Author codes:
+    OK: 5 (25%)
+    MM: 3 (15%)
+    INC: 3 (15%)
+    ABS: 9 (45%)
+  → Non-OK (majority vote): 15 / 20 = 75%
+
+── §5.2 Update Paragraph (draft) ──
+To assess coding reliability, we selected a stratified random sample of N=20 papers (36% of the corpus, proportionally allocated across the nine topic categories) and coded them independently using three LLM raters from distinct model families (NVIDIA Nemotron-Ultra-550B; Google Gemma-4-31B; Alibaba Qwen3-80B-A3B). Each LLM rater received only the coding instrument and the paper's abstract and evaluation methodology passage, with no access to the primary-rater codes. Four-way Krippendorff's α across the author and three LLM raters for the structural validity dimension (Q4) was α = 0.89. This meets the exploratory reliability threshold of α ≥ 0.67 adopted in the prescriptions of this paper, providing IRR-validated support for the 55-paper coding scheme and the 82% IRR misuse prevalence reported.
+============================================================

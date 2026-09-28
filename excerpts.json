@@ -5,7 +5,7 @@
     "category": "A",
     "title": "tau-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
     "year": 2024,
-    "excerpt": "Abstract: Existing benchmarks do not test language agents on their interaction with human users or ability to follow domain-specific rules, both of which are vital for deploying them in real world applications. We propose tau-bench, a benchmark emulating dynamic conversations between a user (simulated by language models) and a language agent provided with domain-specific API tools and policy guidelines. We employ an efficient and faithful evaluation process that compares the database state at the end of a conversation with the annotated goal state. We also propose a new metric (pass^k) to evaluate the reliability of agent behavior over multiple trials. Our experiments show that even state-of-the-art function calling agents (like gpt-4o) succeed on <50% of the tasks, and are quite inconsistent (pass^8 <25% in retail).\n\nEvaluation methodology: The benchmark uses deterministic automated grading by comparing the agent's final database state to an annotated goal state. No human rater panel is used for scoring agent outputs. The paper explicitly states it chose automated grading to avoid subjective human judgments. No inter-rater reliability metric is reported."
+    "excerpt": "Abstract: Existing benchmarks do not test language agents on their interaction with human users or ability to follow domain-specific rules, both of which are vital for deploying them in real world applications. We propose tau-bench, a benchmark emulating dynamic conversations between a user (simulated by language models) and a language agent provided with domain-specific API tools and policy guidelines. We employ an efficient and faithful evaluation process that compares the database state at the end of a conversation with the annotated goal state. We also propose a new metric (pass^k) to evaluate the reliability of agent behavior over multiple trials. Our experiments show that even state-of-the-art function calling agents (like gpt-4o) succeed on <50% of the tasks, and are quite inconsistent (pass^8 <25% in retail).\n\nVerbatim excerpt (\"Reward\" section; Sec. 5): \"Our evaluation scheme compares the database state at the end of each episode with the ground truth expected state.\" \"The reward of a task episode r = r_action x r_output is based on (1) whether the final database is identical to the unique ground truth outcome database... and (2) whether the agent's responses to the user contain all necessary information.\" \"By ensuring that only one database outcome is possible... subjective and noisy human judgments can be replaced by simple and objective database state comparisons.\" No mention of Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, or ICC appears in the paper."
   },
   {
     "paper_id": "A2-osworld",
@@ -13,7 +13,63 @@
     "category": "A",
     "title": "OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments",
     "year": 2024,
-    "excerpt": "Abstract: We introduce OSWorld, the first-of-its-kind scalable, real computer environment for multimodal agents, supporting task setup, execution-based evaluation, and interactive learning across various operating systems. Building upon OSWorld, we create a benchmark of 369 computer tasks involving real web and desktop apps in open domains. Each task example includes a detailed initial state setup configuration and a custom execution-based evaluation script for reliable, reproducible evaluation. Extensive evaluation of state-of-the-art LLM/VLM-based agents reveals that while humans can accomplish over 72.36% of the tasks, the best model achieves only 12.24% success.\n\nEvaluation methodology: Each task uses a custom execution-based evaluation script for automated, deterministic scoring. The paper reports 400+ man-hours for quality assurance of task design. No human rater panel is used to score agent performance. No inter-rater reliability metric is reported. Evaluation is fully automated via execution scripts."
+    "excerpt": "Abstract: We introduce OSWorld, the first-of-its-kind scalable, real computer environment for multimodal agents, supporting task setup, execution-based evaluation, and interactive learning across various operating systems. Building upon OSWorld, we create a benchmark of 369 computer tasks involving real web and desktop apps in open domains. Each task example includes a detailed initial state setup configuration and a custom execution-based evaluation script for reliable, reproducible evaluation. Extensive evaluation of state-of-the-art LLM/VLM-based agents reveals that while humans can accomplish over 72.36% of the tasks, the best model achieves only 12.24% success.\n\nVerbatim excerpt (Sec. 2.2.3; Sec. 3.2 \"Quality control\"): \"we design example-specific evaluation metrics including pre-setup, post-processing, and dedicated functions.\" \"Once annotation is finished, each example is attempted by two authors who did not participate in annotating that specific example, acting as agents to complete the task... This process evaluates the current example's quality.\" \"each example is further scrutinized and iterated upon by different individuals three times from the perspective of alignment with the instruction and correctness under different solutions.\" This quality-control process checks the eval-script design itself, not agent-run scoring; no kappa, alpha, or ICC value is reported for agent outcome scoring."
+  },
+  {
+    "paper_id": "A3-swebench",
+    "zotero_key": "6I7AIIZT",
+    "category": "A",
+    "title": "SWE-BENCH: Can Language Models Resolve Real-World GitHub Issues?",
+    "year": 2024,
+    "excerpt": "Abstract: Language models have outpaced our ability to evaluate them effectively, but for their future development it is essential to study the frontier of their capabilities. We find real-world software engineering to be a rich, sustainable, and challenging testbed for evaluating the next generation of language models. To this end, we introduce SWE-bench, an evaluation framework consisting of 2,294 software engineering problems drawn from real GitHub issues and corresponding pull requests across 12 popular Python repositories.\n\nVerbatim excerpt (Sec. 2.2): \"To evaluate a proposed solution, we apply the generated patch... and then execute the unit and system tests associated with the task instance. If the patch applies successfully and all of these tests pass we consider the proposed solution to have successfully resolved the issue. The metric for our benchmark is the percentage of task instances that are resolved.\" Fully deterministic, execution-based grading (database/test-state comparison); no human annotation or IRR metric of any kind is reported."
+  },
+  {
+    "paper_id": "A4-gaia",
+    "zotero_key": "SACVH66U",
+    "category": "A",
+    "title": "GAIA: a benchmark for General AI Assistants",
+    "year": 2023,
+    "excerpt": "Abstract: We introduce GAIA, a benchmark for General AI Assistants that, if solved, would represent a milestone in AI research. GAIA proposes real-world questions that require a set of fundamental abilities such as reasoning, multi-modality handling, web browsing, and generally tool-use proficiency... we show that human respondents obtain 92% vs. 15% for GPT-4 equipped with plugins.\n\nVerbatim excerpt (Sec. 3.4): \"we asked two new annotators to independently answer each question. If the original annotator and the two new annotators arrived at the same answer, the question was validated... 68% of the questions were good as is, while the rest had to be corrected or removed.\" Primary evaluation is fully automated (quasi-exact-match to ground truth); the separate question-validation step reports only a raw 3-way-unanimous pass-rate, not a chance-corrected IRR metric."
+  },
+  {
+    "paper_id": "A5-webarena",
+    "zotero_key": "IS2ER79P",
+    "category": "A",
+    "title": "WebArena: A Realistic Web Environment for Building Autonomous Agents",
+    "year": 2023,
+    "excerpt": "Abstract: With advances in generative AI, there is now potential for autonomous agents to manage daily tasks via natural language commands... our best GPT-4-based agent only achieves an end-to-end task success rate of 14.41%, significantly lower than the human performance of 78.24%.\n\nVerbatim excerpt (Sec. 3.2, Annotation Process): \"To ensure consistency and accuracy, each question was annotated twice. If the two annotators disagreed, a third annotator finalized the annotation.\" Evaluation itself is deterministic (exact_match / must_include / single-LLM fuzzy_match against a reference answer or programmatic state check); the 2-annotator-plus-arbitration reference-curation process is described but no numeric inter-rater agreement value (kappa, alpha, or even raw %) is ever reported."
+  },
+  {
+    "paper_id": "A6-tau2bench",
+    "zotero_key": "D55PXM6X",
+    "category": "A",
+    "title": "$\\tau^2$-Bench: Evaluating Conversational Agents in a Dual-Control Environment",
+    "year": 2025,
+    "excerpt": "Abstract: Existing benchmarks for conversational AI agents simulate single-control environments, where only the AI agent can use tools to interact with the world... In particular, our experiments show significant performance drops when agents shift from no-user to dual-control, highlighting the challenges of guiding users.\n\nVerbatim excerpt (Sec. 4.3, User simulator quality evaluation): \"Each conversation was reviewed by two separate annotators tasked with identifying user simulator errors... Table 2: User simulator error count (rates) across domains.\" A genuine fixed 2-annotator design exists for the error-review sub-study, but only raw error counts/rates are reported -- no inter-rater agreement metric (kappa/alpha) is computed for it. The primary evaluation metric (pass^k) is fully deterministic (assertion-function grading)."
+  },
+  {
+    "paper_id": "A7-metr-timehorizon",
+    "zotero_key": "MQ2D5XE9",
+    "category": "A",
+    "title": "Measuring AI Ability to Complete Long Software Tasks (METR)",
+    "year": 2026,
+    "excerpt": "Abstract: Despite rapid progress on AI benchmarks, the real-world meaning of benchmark performance remains unclear. To quantify the capabilities of AI systems in terms of human capabilities, we propose a new metric: 50%-task-completion time horizon... frontier AI time horizon has been doubling approximately every seven months since 2019.\n\nVerbatim excerpt (Sec. 3.1): \"we fit time horizons by performing the following logistic regression: p_success(agent,task) = sigma((log h_agent - log t_task) * beta_agent)... Compare to Item Response Theory (IRT).\" A high-profile agentic capability benchmark using human-baseliner task-completion times and logistic (IRT-inspired) modeling; no inter-rater reliability metric between human raters or judges is reported anywhere in the paper."
+  },
+  {
+    "paper_id": "A8-researcharena",
+    "zotero_key": "GVMMH977",
+    "category": "A",
+    "title": "ResearchArena: Evaluating Sabotage and Monitoring in Automated AI R&D",
+    "year": 2026,
+    "excerpt": "Abstract: As AI agents begin to automate AI R&D, we need ways to assess whether their outputs are safe to deploy, even when the agents themselves may be untrusted. AI control offers one such approach: rather than trusting the agent, it treats it as a potential adversary and uses a monitor to detect covert sabotage before deployment.\n\nVerbatim excerpt (Table 2/3): \"ROC-AUC of suspicion separating successful embedded runs from no-side-task baselines... det. rate P(suspicion>50|successful main and side task)\". A sabotage-detection monitor (an LLM classifier) is evaluated via ROC-AUC and a fixed suspicion threshold against known ground-truth sabotage status; this is classifier validity against ground truth, not an inter-rater reliability study, and no kappa/alpha/ICC is reported."
+  },
+  {
+    "paper_id": "A9-agenticdatabench",
+    "zotero_key": "S37QMRCN",
+    "category": "A",
+    "title": "AgenticDataBench: A Comprehensive Benchmark for Data Agents",
+    "year": 2026,
+    "excerpt": "Abstract: Data science aims to derive actionable insights from heterogeneous raw data. We propose AgenticDataBench, a comprehensive benchmark featuring realistic tasks spanning 15 vertical domains with fine-grained ground-truth labels, enabling evaluation of the diversity and complexity of data science workflows and the detailed performance of LLM-based data agents.\n\nVerbatim excerpt: fine-grained ground-truth labels are used together with LLM-based skill scoring to grade agent outputs. No occurrence of \"kappa\", \"alpha\", \"agreement\", \"annotator\", or \"inter-rater\" appears anywhere in the paper (confirmed by full-text keyword search); the inter-rater reliability concept is entirely absent from this benchmark's evaluation design."
   },
   {
     "paper_id": "B1-agentprop",
@@ -21,7 +77,23 @@
     "category": "B",
     "title": "Evaluating Tool-Using Language Agents: Judge Reliability, Propagation Cascades, and Runtime Mitigation in AgentProp-Bench",
     "year": 2026,
-    "excerpt": "Abstract: Automated evaluation of tool-using large language model (LLM) agents is widely assumed to be reliable, but this assumption has rarely been validated against human annotation. We introduce AgentProp-Bench, a 2,000-task benchmark with 2,300 traces across four domains, nine production LLMs, and a 100-label human-validated subset. We quantify judge reliability, characterize error propagation, and evaluate a runtime mitigation. Substring-based judging agrees with human annotation at kappa=0.049 (chance-level); a three-LLM ensemble reaches kappa=0.432 (moderate) with a conservative bias.\n\nEvaluation methodology: A 100-label human-validated subset was used to measure judge reliability. The study compares automated grading methods (substring matching, LLM ensemble) against a single human annotator as reference. Cohen's kappa is reported as the agreement metric between the automated judge and the human annotation reference. The comparison is structured as a 2-rater design (automated method vs. human annotator) on binary (correct/incorrect) labels."
+    "excerpt": "Abstract: Automated evaluation of tool-using large language model (LLM) agents is widely assumed to be reliable, but this assumption has rarely been validated against human annotation. We introduce AgentProp-Bench, a 2,000-task benchmark with 2,300 traces across four domains, nine production LLMs, and a 100-label human-validated subset. We quantify judge reliability, characterize error propagation, and evaluate a runtime mitigation. Substring-based judging agrees with human annotation at kappa=0.049 (chance-level); a three-LLM ensemble reaches kappa=0.432 (moderate) with a conservative bias.\n\nVerbatim excerpt (Sec. 4.6; Sec. 5.1; Table 2): \"One annotator (the first author) labeled each trace as 'correct' (YES) or 'incorrect' (NO)... A second annotator (acknowledged) independently labeled 7 overlapping traces; inter-annotator agreement on this small overlap was 6/7.\" \"Three LLMs (GPT-4o, Gemini-2.5-Flash, GPT-4o-mini) independently judge each trace using an identical prompt... The majority vote (2/3 or 3/3 YES) is the ensemble verdict.\" Table 2 reports kappa=0.143 (heuristic method vs. LLM) and kappa=0.049 (substring method vs. human)."
+  },
+  {
+    "paper_id": "B2-harmmetric",
+    "zotero_key": "DGANWGFW",
+    "category": "B",
+    "title": "HarmMetric Eval: Benchmarking Metrics and Judges for LLM Harmfulness Assessment",
+    "year": 2026,
+    "excerpt": "Abstract: The potential of large language models (LLMs) to generate harmful content poses a significant safety risk... we present HarmMetric Eval, a systematic benchmark for assessing the quality of harmfulness metrics and judges with varying formats and scales... conventional reference-based metrics such as ROUGE and METEOR can outperform LLM-based judges.\n\nVerbatim excerpt (Table 4): \"Agreement rates between harmfulness classifiers and human judgments on the manually labeled validation set of HarmBench... GPTFuzzer Eval 0.740, LlamaGuard-4 0.806, HarmBench Eval 0.825, HarmClassifier 0.829.\" This 'Agreement Rate' is a raw accuracy-style figure comparing each automated classifier against a fixed pre-existing human-labeled ground-truth set -- not a chance-corrected inter-rater reliability metric between distinct raters; no kappa/alpha/ICC appears anywhere in the paper."
+  },
+  {
+    "paper_id": "B3-near-miss",
+    "zotero_key": "ZII2RSXX",
+    "category": "B",
+    "title": "Near-Miss: Latent Policy Failure Detection in Agentic Workflows",
+    "year": 2026,
+    "excerpt": "Abstract: Agentic systems for business process automation often require compliance with policies governing conditional updates to the system state... We introduce a novel metric for detecting latent policy failures in agent conversation traces... latent failures occur in 8-17% of trajectories involving mutating tool calls.\n\nVerbatim excerpt (Ethical Considerations): \"The labeling task was not outsourced to human annotators; instead, it was carefully performed by one of the authors.\" Precision/recall of the near-miss detection method is evaluated against this single-author ground truth (n=~400 simulations); no rater panel exists and no inter-rater reliability metric is reported."
   },
   {
     "paper_id": "C1-webarena-verified",
@@ -29,7 +101,39 @@
     "category": "C",
     "title": "WebArena Verified",
     "year": 2025,
-    "excerpt": "Source: OpenReview submission (re-release of WebArena benchmark with human validation).\n\nEvaluation methodology: The Verified re-release of WebArena adds rigorous human annotation to the original automated evaluation. Two annotators per task (primary annotator + blind verifier) independently label each task outcome as success or failure. Disagreements are adjudicated by a third reviewer. Cohen's kappa = 0.83 [95% CI: 0.81, 0.85] is reported across all 812 tasks. The rater design uses exactly two fixed annotators per item on binary (success/fail) labels. This is a structurally valid use of Cohen's kappa: exactly 2 fixed raters, binary scale, complete matrix."
+    "excerpt": "Source: El Hattami, Thakkar, Chapados & Pal (2025), \"WebArena Verified: Reliable Evaluation for Web Agents\", Scaling Environments for Agents Workshop, NeurIPS 2025 (Zotero key KPRGHDMC, PhD-CARE-MAIN). Verified verbatim against the actual paper PDF.\n\nVerbatim excerpt (Manual Annotation Protocol; Inter-Rater Reliability): \"Four annotators independently labeled tasks with a shared codebook defining each category and decision criteria. We assigned one primary annotator per site: A -> Shopping, B -> Shopping Admin, C -> Reddit, D -> GitLab. To estimate reliability, 100% of tasks were re-labeled by a paired verifier blind to primary labels (A<->B, C<->D), ensuring complete double annotation across all 812 tasks. Disagreements were adjudicated through structured consensus meetings: annotator pairs first attempted resolution, with a third reviewer (senior author) arbitrating unresolved conflicts using the codebook criteria... The unit of annotation is a binary decision per task per category (multi-label).\" \"Using this protocol, we obtain site-level macro-averages of kappa=0.82 (Shopping, N=210), 0.85 (Shopping Admin, N=198), 0.81 (Reddit, N=204), and 0.84 (GitLab, N=200), yielding an overall task-weighted kappa=0.83 (95% CI: [0.81, 0.85]).\" The annotated unit is task-specification ambiguity and category-validity labels (a benchmark-audit judgment), not agreement on whether an agent's task execution succeeded or failed."
+  },
+  {
+    "paper_id": "C10-mcp-agentbench",
+    "zotero_key": "9CD87V6A",
+    "category": "C",
+    "title": "MCP-AgentBench: Evaluating Real-World Language Agent Performance with MCP-Mediated Tools",
+    "year": 2025,
+    "excerpt": "Abstract: The Model Context Protocol (MCP) is rapidly emerging as a pivotal open standard, designed to enhance agent-tool integration and interoperability... we introduce MCP-Eval, a novel outcome-oriented evaluation methodology prioritizing real-world task success.\n\nVerbatim excerpt (Sec. 3.2): \"Three human experts annotated 60 items... The percentage agreement between MCP-Eval and the aggregated human majority vote reached 91.67%, with a Cohen's Kappa of 0.734. For inter-rater reliability on pass/fail decisions, Fleiss' Kappa among the experts was 0.671.\" Fleiss' kappa among 3 fixed human experts on a binary pass/fail scale -- exactly the structurally correct design/metric pairing per this paper's own coding rules."
+  },
+  {
+    "paper_id": "C11-irr-llm-human-qualitative",
+    "zotero_key": "YQRTM6BS",
+    "category": "C",
+    "title": "Investigation of the Inter-Rater Reliability between Large Language Models and Human Raters in Qualitative Analysis",
+    "year": 2025,
+    "excerpt": "Abstract: Qualitative analysis is typically limited to small datasets because it is time-intensive... We investigated the inter-rater reliability of state-of-the-art Large Language Models (LLMs), ChatGPT-4o and ChatGPT-4.5-preview, in rating audio transcripts coded manually.\n\nVerbatim excerpt (Sec. II): \"we compare thematic coding done by two raters (humans coded to consensus treated as one rater, and the LLM treated as the second rater) with fully overlapping codes... we calculated Cohen's kappa for inter-rater reliability.\" A genuine fixed 2-rater (human-consensus vs. LLM) binary classification design with Cohen's kappa; structurally correct, with reported kappa values from 0.55 to 0.70 across four coding themes."
+  },
+  {
+    "paper_id": "C12-artifact-copilot",
+    "zotero_key": "2UP37WZR",
+    "category": "C",
+    "title": "Agent-Based Software Artifact Evaluation",
+    "year": 2026,
+    "excerpt": "Abstract: Artifact Evaluation (AE) has become a standard mechanism for linking software engineering papers to their supporting artifacts, but growing submission volume makes purely manual AE increasingly difficult to sustain... We evaluate our framework on 60 real artifacts from recent software engineering conferences using human-adjudicated badges as reference.\n\nVerbatim excerpt (Sec. V-A): \"Two authors independently evaluated all 60 artifacts using the finalized ARTIFACTGUIDE and assigned dimension scores, gate decisions, and final badge recommendations... The initial independent badge-level judgments achieved a Cohen's kappa of 0.85, indicating strong inter-rater agreement.\" The badge scale (no-badge / Available / Available+Functional / Available+Functional+Reusable) is a 4-level cumulative ORDINAL scale; unweighted Cohen's kappa applied to ordinal data is a structural mismatch under this paper's own coding rules, despite the high raw kappa value."
+  },
+  {
+    "paper_id": "C13-indopref",
+    "zotero_key": "44GAB95X",
+    "category": "C",
+    "title": "IndoPref: A Multi-Domain Pairwise Preference Dataset for Indonesian",
+    "year": 2025,
+    "excerpt": "Abstract: Over 200 million people speak Indonesian, yet the language remains significantly underrepresented in preference-based research for large language models (LLMs)... We introduce IndoPref, the first fully human-authored and multi-domain Indonesian preference dataset... All annotations are natively written in Indonesian with strong inter-annotator agreement, measured by Krippendorff's alpha.\n\nVerbatim excerpt (Sec. 2.3): \"we implement a structured annotation workflow involving two independent groups of native Indonesian annotators... Inter-annotator agreement, measured using Krippendorff's alpha, shows high reliability with 0.965 for relevance and 0.862 for fluency... The overall Krippendorff's alpha for human pairwise rankings across annotators is 0.891.\" Fixed 2-group annotator design; Krippendorff's alpha (scale-agnostic) correctly matched to both the ordinal Likert sub-scores and the binary pairwise-preference judgment, with explicit rationale. Structurally correct."
   },
   {
     "paper_id": "C4-reliable-decision",
@@ -37,7 +141,7 @@
     "category": "C",
     "title": "Reliable Decision Support with LLMs: A Framework for Evaluating Consistency in Binary Text Classification Applications",
     "year": 2025,
-    "excerpt": "Abstract: This study introduces a framework for evaluating consistency in large language model (LLM) binary text classification, addressing the lack of established reliability assessment methods. Adapting psychometric principles, we determine sample size requirements, develop metrics for invalid responses, and evaluate intra- and inter-rater reliability. Our case study examines financial news sentiment classification across 14 LLMs, with five replicates per model on 1,350 articles.\n\nEvaluation methodology section (from paper): We recommend computing the following complementary reliability metrics: Conger's Kappa, Fleiss' Kappa, Gwet's AC1, Brennan-Prediger Coefficient, and Krippendorff's Alpha. Using multiple metrics ensures a more comprehensive evaluation, as no single measure fully captures the nuances of reliability in binary annotation. For inter-rater reliability, all 14 LLMs are treated as raters scoring the same 1,350 items. Binary classification labels (positive/negative sentiment). The paper explicitly states metric rationale and structural conditions for each metric choice."
+    "excerpt": "Abstract: This study introduces a framework for evaluating consistency in large language model (LLM) binary text classification, addressing the lack of established reliability assessment methods. Adapting psychometric principles, we determine sample size requirements, develop metrics for invalid responses, and evaluate intra- and inter-rater reliability. Our case study examines financial news sentiment classification across 14 LLMs, with five replicates per model on 1,350 articles.\n\nVerbatim excerpt (Sec. 2.3; Sec. 3.1): \"Cohen's Kappa (kappa)... adjusts for chance agreement between two raters on categorical data... Landis and Koch [38, p.165] suggest that kappa values between 0.61 and 0.80 represent 'substantial' agreement.\" \"We recommend computing the following complementary reliability metrics: Conger's Kappa, Fleiss' Kappa, Gwet's AC1, Brennan-Prediger Coefficient, and Krippendorff's Alpha. Using multiple metrics ensures a more comprehensive evaluation, as no single measure fully captures the nuances of reliability in binary annotation.\" Design: 14 LLMs, 5 replicates each on 1,350 articles; reliability is computed both within each model's own replicates (intra-rater) and across models (inter-rater)."
   },
   {
     "paper_id": "C5-yamauchi",
@@ -45,7 +149,39 @@
     "category": "C",
     "title": "An Empirical Study of LLM-as-a-Judge: How Design Choices Impact Evaluation Reliability",
     "year": 2025,
-    "excerpt": "Abstract: As large language models (LLMs) continue to advance, reliable evaluation methods are essential particularly for open-ended, instruction-following tasks. LLM-as-a-Judge enables automatic evaluation using LLMs as evaluators, but its reliability remains uncertain. In this work, we analyze key factors affecting its trustworthiness, focusing on alignment with human judgments and evaluation consistency. Using BIGGENBench and EvalBiasBench, we study the effects of evaluation design, decoding strategies, and Chain-of-Thought (CoT) reasoning in evaluation.\n\nEvaluation methodology: The paper explicitly selects Krippendorff's alpha as the primary inter-rater reliability metric, with stated rationale for this choice over Cohen's kappa. Multiple conditions (evaluation design choices) are compared. The rubric produces ordinal scores. The paper reports Krippendorff's alpha values for each design condition studied."
+    "excerpt": "Abstract: As large language models (LLMs) continue to advance, reliable evaluation methods are essential particularly for open-ended, instruction-following tasks. LLM-as-a-Judge enables automatic evaluation using LLMs as evaluators, but its reliability remains uncertain. In this work, we analyze key factors affecting its trustworthiness, focusing on alignment with human judgments and evaluation consistency. Using BIGGENBench and EvalBiasBench, we study the effects of evaluation design, decoding strategies, and Chain-of-Thought (CoT) reasoning in evaluation.\n\nVerbatim excerpt (Sec. 3.1 / Appendix A): \"We use Krippendorff's alpha coefficient to evaluate consistency of evaluation results... The alpha value... is 1 for perfect agreement, 0 for random annotations, and negative for systematic disagreement.\" This design measures a single LLM judge's self-consistency across 5 repeated stochastic samples of the same items (see Tables 1/2), not agreement between distinct human or LLM raters."
+  },
+  {
+    "paper_id": "C6-play-favorites",
+    "zotero_key": "NU9KXXG9",
+    "category": "C",
+    "title": "Play Favorites: A Statistical Method to Measure Self-Bias in LLM-as-a-Judge",
+    "year": 2025,
+    "excerpt": "Abstract: Large language models (LLMs) can serve as judges that offer rapid and reliable assessments of other LLM outputs. However, models may systematically assign overly favorable ratings to their own outputs, a phenomenon known as self-bias... We conduct an empirical analysis of self-bias on a large dataset (>5000 prompt-completion pairs).\n\nVerbatim excerpt (Sec. 4.3): \"Each prompt-completion pair is annotated by three human raters on every dimension, from an in-house team of annotators... The average Krippendorff's alpha is 0.28 across all dimensions; however... some dimensions have significantly higher Krippendorff's alpha, such as helpfulness and completeness with alpha=0.47... we also estimate the observed agreement... which is high (81%).\" Fixed 3-rater panel, Krippendorff's alpha correctly applied to ordinal (5-7 point Likert) dimensions, with explicit rationale. Structurally correct design."
+  },
+  {
+    "paper_id": "C7-neurips-data-curation",
+    "zotero_key": "69CUXVXL",
+    "category": "C",
+    "title": "The State of Data Curation at NeurIPS: An Assessment of Dataset Development Practices",
+    "year": 2024,
+    "excerpt": "Abstract: Data curation is a field with origins in librarianship and archives... This work provides an analysis of dataset development practices at NeurIPS through the lens of data curation... We use the framework to assess the strengths and weaknesses in current dataset development practices of 60 datasets.\n\nVerbatim excerpt (Sec. 3, Consistency): \"we calculated IRR using a two-way mixed, consistent, average-measures intra-class coefficient (ICC) to assess the consistency of the raters' evaluations of rubric elements measured on an ordinal scale... the median ICC value for the 30 datasets evaluated was 0.90.\" Round 5 used a rotating pool of 4 reviewers double-coding 30 datasets (2-of-4 per dataset); ICC correctly matched to the ordinal rubric scale."
+  },
+  {
+    "paper_id": "C8-legal-rag-judge",
+    "zotero_key": "BZ65H2GN",
+    "category": "C",
+    "title": "LLM-as-a-Judge: Rapid Evaluation of Legal Document Recommendation for Retrieval-Augmented Generation",
+    "year": 2025,
+    "excerpt": "Abstract: The evaluation bottleneck in recommendation systems has become particularly acute with the rise of Generative AI... we discover that traditional agreement metrics like Krippendorff's alpha can be misleading in the skewed distributions typical of AI system evaluations. Instead, Gwet's AC2 and rank correlation coefficients emerge as more robust indicators.\n\nVerbatim excerpt (Table 4): reports Cohen's kappa, Krippendorff's alpha, Gwet's AC2 (linear and quadratic), Spearman's rho, and Kendall's tau side by side for six LLM judges against human relevance ratings on a 1-4 ordinal scale, with explicit rationale for using a multimetric suite given skewed label distributions. Structurally correct (fixed-judge, ordinal-scale) IRR usage, even though the paper argues Krippendorff's alpha specifically can mislead under skew."
+  },
+  {
+    "paper_id": "C9-aireg-bench",
+    "zotero_key": "TUD33QXU",
+    "category": "C",
+    "title": "AIReg-Bench: Benchmarking Language Models That Assess AI Regulation Compliance",
+    "year": 2025,
+    "excerpt": "Abstract: As governments move to regulate AI, there is growing interest in using Large Language Models (LLMs) to assess whether or not an AI system complies with a given AI Regulation (AIR)... we introduce AIReg-Bench: the first open benchmark dataset designed to test how well LLMs can assess compliance with the EU AI Act.\n\nVerbatim excerpt (Sec. 3.1): \"each excerpt was reviewed by three of our six annotators... The annotators' inter-rater reliability, as measured with Krippendorff's alpha coefficient, was 0.651. This suggests a moderate level of agreement.\" Rotating pool of 3-of-6 legal expert annotators, Krippendorff's alpha correctly applied to a 5-point Likert compliance scale, with explicit discussion of the (moderate) reliability level."
   },
   {
     "paper_id": "D1-judges-verdict",
@@ -53,7 +189,7 @@
     "category": "D",
     "title": "Judge's Verdict: A Comprehensive Analysis of LLM Judge Capability Through Human Agreement",
     "year": 2025,
-    "excerpt": "Abstract: This research introduces the Judge's Verdict Benchmark, a novel two-step methodology to evaluate Large Language Models (LLMs) as judges for response accuracy evaluation tasks. We assess how well 54 LLMs can replicate human judgment when scoring responses from RAG or Agentic pipelines against ground truth answers. Our methodology progresses from traditional correlation analysis to comprehensive Cohen's Kappa analysis that measures actual agreement patterns. The two-step approach includes: (1) a correlation test that filters judges with strong alignment, followed by (2) a human-likeness test using z-scores to identify two distinct judgment patterns. Testing 43 open-source models (1B-405B parameters) and 11 closed models (GPT, Gemini, Claude variants).\n\nEvaluation methodology: Cohen's kappa is applied as the primary reliability metric across 54 LLM judges evaluating RAG/agentic responses against human annotation. The study applies Cohen's kappa as a series of pairwise comparisons (each of the 54 LLMs vs. human ratings). The results are then aggregated and interpreted as panel reliability across 54 configurations with varying rater compositions. No rationale for metric choice is provided. The scale appears binary (correct/incorrect match to ground truth)."
+    "excerpt": "Abstract: This research introduces the Judge's Verdict Benchmark, a novel two-step methodology to evaluate Large Language Models (LLMs) as judges for response accuracy evaluation tasks. We assess how well 54 LLMs can replicate human judgment when scoring responses from RAG or Agentic pipelines against ground truth answers. Our methodology progresses from traditional correlation analysis to comprehensive Cohen's Kappa analysis that measures actual agreement patterns. The two-step approach includes: (1) a correlation test that filters judges with strong alignment, followed by (2) a human-likeness test using z-scores to identify two distinct judgment patterns. Testing 43 open-source models (1B-405B parameters) and 11 closed models (GPT, Gemini, Claude variants).\n\nVerbatim excerpt (Sec. 3 / Sec. 1.2): \"we calculate Cohen's Kappa between the LLM and each human individually then average, comparing against a baseline of kappa = 0.801 from human-to-human agreement.\" Separately: \"Inter-annotator agreement was assessed using Fleiss' kappa with quadratic weighting (kappa = 0.79) and validated using Krippendorff's alpha with ordinal distance (alpha = 0.79).\" The paper devotes a section to justifying kappa over correlation-based approaches for this task."
   },
   {
     "paper_id": "D2-multi-llm-thematic",
@@ -61,7 +197,23 @@
     "category": "D",
     "title": "Multi-LLM Thematic Analysis with Dual Reliability Metrics: Combining Cohen's Kappa and Semantic Similarity for Qualitative Research Validation",
     "year": 2026,
-    "excerpt": "Abstract: This paper introduces a novel framework for using multiple large language models (LLMs) as qualitative research analysts. Three LLMs (Gemini, GPT-4o, Claude) independently perform thematic analysis and their outputs are compared using Cohen's kappa and semantic similarity metrics. The framework achieves kappa > 0.91 across thematic coding tasks, demonstrating high inter-rater agreement.\n\nEvaluation methodology: Cohen's kappa is applied to measure agreement among three LLMs (Gemini, GPT-4o, Claude) performing thematic analysis. The rater design uses 3 LLMs as a fixed panel scoring the same items with nominal categories (thematic codes). The paper reports kappa > 0.91. No rationale is provided for why Cohen's kappa was chosen rather than Fleiss' kappa for the 3-rater design."
+    "excerpt": "Abstract: This paper introduces a novel framework for using multiple large language models (LLMs) as qualitative research analysts. Three LLMs (Gemini, GPT-4o, Claude) independently perform thematic analysis and their outputs are compared using Cohen's kappa and semantic similarity metrics. The framework achieves kappa > 0.91 across thematic coding tasks, demonstrating high inter-rater agreement.\n\nVerbatim excerpt (Sec. 3.2 / Sec. 4.1): \"we compute theme presence/absence across runs, calculating pairwise kappa for all run pairs.\" Per Sec. 4.1, each of the three LLMs (Gemini, GPT-4o, Claude) is run independently 6 times with fixed seeds, and kappa is computed within each model's own 6 runs (Gemini kappa=0.907, GPT-4o kappa=0.853, Claude kappa=0.842) — not across the three models as a joint panel."
+  },
+  {
+    "paper_id": "D3-self-preference-bias",
+    "zotero_key": "GAVQ4T5K",
+    "category": "D",
+    "title": "Self-Preference Bias in LLM-as-a-Judge",
+    "year": 2025,
+    "excerpt": "Abstract: Automated evaluation leveraging large language models (LLMs)... has been widely used in measuring the performance of dialogue systems. However, the self-preference bias in LLMs has posed significant risks, including promoting specific styles or policies intrinsic to the LLMs. In this paper, we introduce a novel quantitative metric to measure the self-preference bias.\n\nVerbatim excerpt (Sec. 4.1): \"we employ the concept of Equal Opportunity [Hardt et al., 2016] to quantify self-preference bias by treating LLM evaluators as classifiers... Bias = P(Y'=1|S=1,Y=1) - P(Y'=1|S=0,Y=1).\" A fairness/bias metric (Equal Opportunity, and separately Demographic Parity) is computed against pre-existing Chatbot Arena human preference labels; no inter-rater reliability metric (kappa/alpha/ICC) is reported anywhere."
+  },
+  {
+    "paper_id": "D4-math-coherence-proxies",
+    "zotero_key": "FBE2J49I",
+    "category": "D",
+    "title": "LLM-as-a-Judge Approaches as Proxies for Mathematical Coherence in Narrative Extraction",
+    "year": 2025,
+    "excerpt": "Verbatim excerpt: \"K independent LLM agents (K=5 for news, K=3 for scientific)\" are described as raters, but on full-text inspection these are confirmed to be the SAME model (GPT-4.1) run repeatedly with varying temperature (0.3-0.7) and random seeds, not independent human or model raters. Reported \"ICC(2,1) > 0.96\" / \"ICC values (>0.92)\" measure self-consistency across repeated stochastic samples of one model, not agreement between distinct raters -- the same structural issue documented in C5-yamauchi and D2-multi-llm-thematic. Coded as a structural mismatch (self-consistency design mistaken for a multi-rater design), not as correct IRR usage."
   },
   {
     "paper_id": "E1-agentprocessbench",
@@ -69,7 +221,15 @@
     "category": "E",
     "title": "AgentProcessBench: Diagnosing Step-Level Process Quality in Tool-Using Agents",
     "year": 2026,
-    "excerpt": "Abstract: We introduce AgentProcessBench, the first benchmark dedicated to evaluating step-level effectiveness in realistic, tool-augmented trajectories. The benchmark comprises 1,000 diverse trajectories and 8,509 human-labeled step annotations with 89.1% inter-annotator agreement. It features a ternary labeling scheme to capture exploration and an error propagation rule to reduce labeling ambiguity.\n\nEvaluation methodology: Human annotators label each agent step using a ternary labeling scheme (+1 correct, 0 neutral, -1 incorrect). The paper reports 89.1% inter-annotator agreement. The ternary labels are ordinal (ordered: -1 < 0 < +1). The agreement figure is raw percentage agreement without a chance-correction metric such as Cohen's kappa or Krippendorff's alpha. The number of annotators and whether rater identity is fixed or rotating is not stated in the abstract."
+    "excerpt": "Abstract: We introduce AgentProcessBench, the first benchmark dedicated to evaluating step-level effectiveness in realistic, tool-augmented trajectories. The benchmark comprises 1,000 diverse trajectories and 8,509 human-labeled step annotations with 89.1% inter-annotator agreement. It features a ternary labeling scheme to capture exploration and an error propagation rule to reduce labeling ambiguity.\n\nVerbatim excerpt (Methodology): \"Each trajectory is labeled independently by two experts, yielding a step-level inter-annotator agreement (IAA) of 89.1% and a Cohen's kappa of 0.767, both computed over all annotated steps.\" NOTE: the original (pre-revision) excerpt for this paper claimed no chance-corrected metric was reported — that claim was factually incorrect; the paper reports Cohen's kappa explicitly alongside the percentage figure."
+  },
+  {
+    "paper_id": "E2-red-teaming-ganguli",
+    "zotero_key": "3ISDCD8L",
+    "category": "E",
+    "title": "Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned",
+    "year": 2022,
+    "excerpt": "Abstract: We describe our early efforts to red team language models in order to simultaneously discover, measure, and attempt to reduce their potentially harmful outputs... we release our dataset of 38,961 red team attacks for others to analyze and learn from.\n\nVerbatim excerpt (Sec. 3.5): \"We report a Fleiss's Kappa of 0.32 between the 4 raters (the author and the 3 reviewers) based on a Likert rating scale. When we binarize the rating (1 if rating>=3, else 0), the agreement increases to 0.49.\" Fleiss' kappa (designed for nominal-scale agreement) is applied to a 5-point Likert (ordinal) rating scale of attack-success -- a structural mismatch under this paper's own coding rules, despite 4 fixed raters being a valid rater-count for Fleiss' kappa."
   },
   {
     "paper_id": "E3-webvoyager",
@@ -77,7 +237,39 @@
     "category": "E",
     "title": "Emergence WebVoyager: Toward Consistent and Transparent Evaluation of (Web) Agents in The Wild",
     "year": 2026,
-    "excerpt": "Abstract: This study identifies persistent shortcomings in existing AI agent evaluation practices. We introduce Emergence WebVoyager, an enhanced version of the WebVoyager benchmark that standardizes evaluation methodology through clear guidelines for task instantiation, failure handling, annotation, and reporting. Emergence WebVoyager achieves an inter-annotator agreement of 95.9%, indicating improved clarity and reliability in both task formulation and evaluation. Applying this framework to evaluate OpenAI Operator reveals substantial performance variation across domains, with an overall success rate of 68.6%.\n\nEvaluation methodology: Human annotators label task outcomes as success or failure (binary scale). The paper reports 95.9% inter-annotator agreement as the reliability measure. The agreement figure is raw percentage without a chance-correction metric. The rater design and number of annotators per task are not specified in the abstract. No kappa or alpha coefficient is reported alongside the percentage agreement figure."
+    "excerpt": "Abstract: This study identifies persistent shortcomings in existing AI agent evaluation practices. We introduce Emergence WebVoyager, an enhanced version of the WebVoyager benchmark that standardizes evaluation methodology through clear guidelines for task instantiation, failure handling, annotation, and reporting. Emergence WebVoyager achieves an inter-annotator agreement of 95.9%, indicating improved clarity and reliability in both task formulation and evaluation. Applying this framework to evaluate OpenAI Operator reveals substantial performance variation across domains, with an overall success rate of 68.6%.\n\nVerbatim excerpt (Sec. 4): \"each task is independently reviewed by two researchers and paired with explicit, human-curated annotation guidelines... The inter-annotator agreement of Emergence WebVoyager is 95.9%.\" No Cohen's kappa, Fleiss' kappa, or Krippendorff's alpha value is reported anywhere in the text alongside this percentage figure."
+  },
+  {
+    "paper_id": "E4-trustworthy-chatbot-eval",
+    "zotero_key": "YKTZJWX5",
+    "category": "E",
+    "title": "Challenges in Trustworthy Human Evaluation of Chatbots",
+    "year": 2024,
+    "excerpt": "Abstract: Open community-driven platforms like Chatbot Arena that collect user preference data from site visitors have gained a reputation as one of the most trustworthy publicly available benchmarks for LLM performance...\n\nVerbatim excerpt (Table 4, Sec. 3.3): \"Fleiss' Kappa between four [fixed undergraduate CS student] annotators on different evaluation axes: Th(esis), Org(anization), Re(asoning), Per(spectives), WS (Writing Style).\" Printed kappa values (e.g. 27.16, -12.15, 20.06) fall outside the mathematically valid range [-1,1] with no scaling stated in the text; per author-approved interpretation, read as kappa x100 (e.g. 0.2716, -0.1215), consistent with the paper's own framing of 'very low agreement'. Fleiss' kappa applied to ordinal Likert-style ratings is a structural mismatch."
+  },
+  {
+    "paper_id": "E5-cognitive-distortions",
+    "zotero_key": "ATJF3JAH",
+    "category": "E",
+    "title": "Towards Consistent Detection of Cognitive Distortions: LLM-Based Annotation and Dataset-Agnostic Evaluation",
+    "year": 2025,
+    "excerpt": "Abstract: Text-based automated Cognitive Distortion detection is a challenging task due to its subjective nature, with low agreement scores observed even among expert human annotators... Our results show that GPT-4 can produce consistent annotations (Fleiss's Kappa = 0.78).\n\nVerbatim excerpt (Sec. 3.4): \"we compute Fleiss' kappa... to assess the reliability of LLM-generated labels across the five independent LLM runs.\" The headline Fleiss' kappa=0.78 is computed across 5 repeated stochastic runs of the SAME model (GPT-4/GPT-4o) -- a self-consistency design, not independent raters. The paper separately reports a genuine 3-human-expert Fleiss' kappa of only 0.20 in its human-verification section (Sec. 6), confirming the low reliability the self-consistency framing obscures."
+  },
+  {
+    "paper_id": "F1-lost-in-simulation",
+    "zotero_key": "GTRTBRIE",
+    "category": "F",
+    "title": "Lost in Simulation: LLM-Simulated Users are Unreliable Proxies for Human Users in Agentic Evaluations",
+    "year": 2026,
+    "excerpt": "Abstract: Agentic benchmarks increasingly rely on LLM-simulated users to scalably evaluate agent performance, yet the robustness, validity, and fairness of this approach remain unexamined... We find that user simulation lacks robustness, with agent success rates varying up to 9 percentage points across different user LLMs.\n\nVerbatim excerpt (Sec. 3.4): \"we define success rate as the percentage of tasks that are successfully completed... Expected Calibration Error (ECE)... measures whether agent success rates with simulated users align with agent success rates with real users across task difficulty levels.\" Metrics used are success-rate and calibration-error comparisons between simulated and human-user conditions; no inter-rater reliability metric of any kind is reported anywhere in the paper."
+  },
+  {
+    "paper_id": "F2-meta-harness",
+    "zotero_key": "JVTQKJMD",
+    "category": "F",
+    "title": "Meta-Harness: End-to-End Optimization of Model Harnesses",
+    "year": 2026,
+    "excerpt": "Abstract: The performance of large language model (LLM) systems depends not only on model weights, but also on their harness: the code that determines what information to store, retrieve, and present to the model... We introduce Meta-Harness, an outer-loop system that searches over harness code for LLM applications.\n\nVerbatim excerpt: results are reported purely as benchmark accuracy / pass-rate comparisons across online text classification, retrieval-augmented math reasoning, and agentic coding (TerminalBench-2); no human annotators, rater panel, or inter-rater reliability metric of any kind appears anywhere in the paper."
   },
   {
     "paper_id": "F3-multiagent-debate",
@@ -85,7 +277,7 @@
     "category": "F",
     "title": "Multi-Agent Debate for LLM Judges with Adaptive Stability Detection",
     "year": 2025,
-    "excerpt": "Abstract: With advancements in reasoning capabilities, Large Language Models (LLMs) are increasingly employed for automated judgment tasks. We propose a multi-agent debate judge framework where agents collaboratively reason and iteratively refine their responses. We formalize the debate process mathematically, analyzing agent interactions and proving that debate amplifies correctness compared to static ensembles. We introduce a stability detection mechanism that models judge consensus dynamics via a time-varying Beta-Binomial mixture, with adaptive stopping based on distributional similarity (Kolmogorov-Smirnov test). Experiments demonstrate that our framework improves judgment accuracy over majority voting while maintaining computational efficiency.\n\nEvaluation methodology: The study evaluates LLM judge frameworks using accuracy metrics (judgment accuracy vs. ground truth). The evaluation compares different panel configurations (majority voting vs. debate). No inter-rater reliability metric (kappa, alpha, ICC) is reported to quantify agreement between individual judge agents. The primary outcome measure is accuracy against ground truth, not rater agreement."
+    "excerpt": "Abstract: With advancements in reasoning capabilities, Large Language Models (LLMs) are increasingly employed for automated judgment tasks. We propose a multi-agent debate judge framework where agents collaboratively reason and iteratively refine their responses. We formalize the debate process mathematically, analyzing agent interactions and proving that debate amplifies correctness compared to static ensembles. We introduce a stability detection mechanism that models judge consensus dynamics via a time-varying Beta-Binomial mixture, with adaptive stopping based on distributional similarity (Kolmogorov-Smirnov test). Experiments demonstrate that our framework improves judgment accuracy over majority voting while maintaining computational efficiency.\n\nVerbatim excerpt (Sec. 3 notation; Sec. 6.2, Table 1 caption): \"let x be the task and y the ground truth answer.\" \"Table 1: Accuracy (%) and standard error (%) of different response aggregation methods—Single (sampling once), SoM (Majority Vote), and Debate (10 Rounds Maximum)—across datasets and models. All results use an ensemble size of 7 and a sampling temperature of 1.0.\" No mention of Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, or ICC appears in the paper."
   },
   {
     "paper_id": "F4-judgebiasbench",
@@ -93,7 +285,15 @@
     "category": "F",
     "title": "Toward Robust LLM-Based Judges: Taxonomic Bias Evaluation and Debiasing Optimization",
     "year": 2026,
-    "excerpt": "Abstract: We introduce a taxonomic bias evaluation framework for LLM judges, identifying 12 distinct bias types that affect evaluation reliability. The framework documents significant and diverse bias patterns across generative and discriminative evaluation tasks. We develop debiasing optimization techniques that reduce identified biases. Experiments span multiple benchmark datasets and LLM families.\n\nEvaluation methodology: The study evaluates LLM judge bias through a taxonomic framework measuring 12 bias types. Evaluation metrics include bias magnitude and debiasing effectiveness. No inter-rater reliability metric (kappa, alpha, ICC) is reported to measure agreement between human raters or between LLM judges. The focus is on systematic bias characterization rather than rater agreement measurement."
+    "excerpt": "Abstract: We introduce a taxonomic bias evaluation framework for LLM judges, identifying 12 distinct bias types that affect evaluation reliability. The framework documents significant and diverse bias patterns across generative and discriminative evaluation tasks. We develop debiasing optimization techniques that reduce identified biases. Experiments span multiple benchmark datasets and LLM families.\n\nVerbatim excerpt (Sec. 4.2, \"Metrics\"): \"we introduce a novel metric, Bias Sensitivity Rate (BSR)... BSR measures the proportion of originally correct judgments that become incorrect after bias injection.\" No mention of Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, or ICC appears in the paper."
+  },
+  {
+    "paper_id": "F5-illusion-of-progress",
+    "zotero_key": "VGJJH4EM",
+    "category": "F",
+    "title": "An Illusion of Progress? Assessing the Current State of Web Agents",
+    "year": 2025,
+    "excerpt": "Abstract: ...we conduct a comprehensive and rigorous assessment of the current state of web agents. Our results depict a very different picture of the competency of current agents, suggesting over-optimism in previously reported results... we also develop a novel LLM-as-a-Judge automatic evaluation method [WebJudge] and show that it can achieve around 85% agreement with human judgment.\n\nVerbatim excerpt (Sec. 4.1): \"Each task is labeled by at least two annotators, with a third resolving any conflicts. We measure agreement between all automatic evaluation methods and humans on final binary decisions.\" Agreement is reported throughout as a raw percentage (e.g. 85.7% for WebJudge/o4-mini) rather than a chance-corrected metric; no kappa or alpha value is computed for either the underlying human-label creation or the automatic-evaluator comparison."
   },
   {
     "paper_id": "G1-annotation-alignment",
@@ -101,7 +301,7 @@
     "category": "G",
     "title": "Annotation Alignment: Comparing LLM and Human Annotations of Conversational Safety",
     "year": 2024,
-    "excerpt": "Abstract: We examine annotation alignment between LLM and human annotators for conversational safety tasks. The study involves 112 annotators across 10 race-gender demographic groups evaluating 350 conversations. Safety ratings are provided on an ordinal scale.\n\nEvaluation methodology: Pearson correlation (r=0.59) is reported as the agreement measure between GPT-4 annotations and the average human annotator rating. The 112 annotators across 10 demographic groups provide ordinal safety ratings. No inter-rater reliability metric (Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, or ICC) is reported to measure agreement among the 112 human raters or between the LLM and human raters as a panel. Pearson correlation is a measure of linear association, not inter-rater agreement."
+    "excerpt": "Abstract: We examine annotation alignment between LLM and human annotators for conversational safety tasks. The study involves 112 annotators across 10 race-gender demographic groups evaluating 350 conversations. Safety ratings are provided on an ordinal scale.\n\nVerbatim excerpt (Abstract; \"Data and Models\"): \"GPT-4 achieves a Pearson correlation of r = 0.59 with the average annotator rating, higher than the median annotator's correlation with the average (r=0.51).\" \"350 conversations are each rated for safety by 112 annotators spanning 10 race-gender groups.\" No mention of Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, or ICC appears in the paper."
   },
   {
     "paper_id": "G2-chatbot-arena",
@@ -109,7 +309,55 @@
     "category": "G",
     "title": "Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference",
     "year": 2024,
-    "excerpt": "Abstract: Large Language Models (LLMs) have unlocked new capabilities; however, evaluating the alignment with human preferences still poses significant challenges. To address this issue, we introduce Chatbot Arena, an open platform for crowdsourced battle and pairwise preference evaluation. Users vote for their preferred model in head-to-head comparisons. We rate models using Elo ratings computed from these crowdsourced pairwise votes.\n\nEvaluation methodology: Human evaluators provide binary pairwise preferences (Model A vs. Model B) through crowdsourced voting. ELO rating scores are computed from the aggregate votes to rank models. No inter-rater reliability metric (kappa, alpha, ICC) is reported to quantify agreement between different users evaluating the same pair. The rater pool is crowdsourced, with different users rating different conversation pairs (rotating rater identity). ELO models ranking stability, not inter-rater agreement."
+    "excerpt": "Abstract: Large Language Models (LLMs) have unlocked new capabilities; however, evaluating the alignment with human preferences still poses significant challenges. To address this issue, we introduce Chatbot Arena, an open platform for crowdsourced battle and pairwise preference evaluation. Users vote for their preferred model in head-to-head comparisons. We rate models using Elo ratings computed from these crowdsourced pairwise votes.\n\nVerbatim excerpt (Abstract; Sec. 3, Table 3): \"We confirm that... the crowdsourced human votes are in good agreement with those of expert raters.\" \"Table 3. Pairwise agreement rate between crowd-user, gpt-4 judge, and experts on pairwise battles\" reports raw percentage values of 73.8%-83.1%. Model ranking uses Bradley-Terry coefficients (\"previous evolutions... reported... the Elo score... instead of the BT coefficients\"). No kappa or alpha coefficient appears in the paper."
+  },
+  {
+    "paper_id": "G3-measurement-imbalance",
+    "zotero_key": "AYUIHKLU",
+    "category": "G",
+    "title": "The Measurement Imbalance in Agentic AI Evaluation Undermines Industry Productivity Claims",
+    "year": 2025,
+    "excerpt": "Abstract: As industry reports claim agentic AI systems deliver double-digit productivity gains and multi-trillion dollar economic potential, the validity of these claims has become critical... Our systematic review of 84 papers (2023-2025) reveals an evaluation imbalance where technical metrics dominate assessments (83%), while human-centered (30%), safety (53%), and economic assessments (30%) remain peripheral.\n\nVerbatim excerpt (Sec. 3.1): \"Two reviewers independently screened 138 papers (with 85% agreement), with disagreements resolved by a third reviewer... inter-reliability testing.\" A fixed 2-reviewer-plus-arbitration screening design; only raw percentage agreement (85%) is reported for the binary inclusion/exclusion coding, with no chance correction (no kappa/alpha)."
+  },
+  {
+    "paper_id": "G4-rlhf-statistical-perspective",
+    "zotero_key": "BRMS5VFZ",
+    "category": "G",
+    "title": "Reinforcement Learning from Human Feedback: A Statistical Perspective",
+    "year": 2026,
+    "excerpt": "Abstract: Reinforcement learning from human feedback (RLHF) has emerged as a central framework for aligning large language models (LLMs) with human preferences... This survey provides a statistical perspective on RLHF, focusing primarily on the LLM alignment setting.\n\nVerbatim excerpt: a pure statistical tutorial/survey (Bradley-Terry-Luce model, latent utility estimation, reward modeling, PPO/DPO) with a running example based on an existing dataset (PRISM); no primary rater study of its own is conducted and no IRR metric or value is reported anywhere in the paper."
+  },
+  {
+    "paper_id": "G5-three-models-rlhf-annotation",
+    "zotero_key": "5IX8JMXH",
+    "category": "G",
+    "title": "Three Models of RLHF Annotation: Extension, Evidence, and Authority",
+    "year": 2026,
+    "excerpt": "Abstract: Preference-based alignment methods, most prominently Reinforcement Learning with Human Feedback (RLHF), use the judgments of human annotators to shape large language model behaviour. However, the normative role of these judgments is rarely made explicit. I distinguish three conceptual models of that role: extension, evidence, and authority.\n\nVerbatim excerpt: a normative-ethics/philosophy paper (published at FAccT) analyzing the conceptual/normative role of RLHF annotators by surveying how landmark papers (InstructGPT, Anthropic HH, Jury Learning, etc.) implicitly draw on different models; the paper conducts no empirical study of its own and reports no IRR value."
+  },
+  {
+    "paper_id": "G6-length-bias",
+    "zotero_key": "IDEMAUR9",
+    "category": "G",
+    "title": "Explaining Length Bias in LLM-Based Preference Evaluations",
+    "year": 2024,
+    "excerpt": "Abstract: The use of large language models (LLMs) as judges, particularly in preference comparisons, has become widespread, but this reveals a notable bias towards longer responses, undermining the reliability of such evaluations... we propose AdapAlpaca, a simple yet effective adjustment to win rate measurement.\n\nVerbatim excerpt (Sec. 3.1): \"Our experimental setup adheres to the AlpacaEval Leaderboard guidelines, employing the GPT-4 Preview (11/06) as both the Baseline and the Annotator.\" A single-annotator (one LLM) win-rate study; a small supplementary human study compares win rates against human votes but reports only win-rate differences, not a kappa/alpha inter-rater reliability metric."
+  },
+  {
+    "paper_id": "G7-reward-model-eval-rlhf",
+    "zotero_key": "8MFE9EI8",
+    "category": "G",
+    "title": "How to Evaluate Reward Models for RLHF",
+    "year": 2024,
+    "excerpt": "Abstract: We introduce a new benchmark for reward models that quantifies their ability to produce strong language models through RLHF... we compile our data and findings into Preference Proxy Evaluations (PPE), the first reward model benchmark explicitly linked to post-RLHF real-world human preference performance.\n\nVerbatim excerpt (Sec. 4.1): \"The human preference dataset contains human-labeled preferences for 16,038 pairwise comparisons... preferences crowdsourced from 6,120 individuals.\" Scoring uses pairwise ranking accuracy, Spearman/Kendall/Pearson correlation, and Bradley-Terry Arena Scores against this crowdsourced preference set; no chance-corrected inter-rater reliability metric (kappa/alpha/ICC) is reported anywhere."
+  },
+  {
+    "paper_id": "G8-how-humans-help-llms",
+    "zotero_key": "FJFD7J72",
+    "category": "G",
+    "title": "How Humans Help LLMs: Assessing and Incentivizing Human Preference Annotators",
+    "year": 2025,
+    "excerpt": "Abstract: Human-annotated preference data play an important role in aligning large language models (LLMs). In this paper, we study two connected questions: how to monitor the quality of human preference annotators and how to incentivize them to provide high-quality annotations.\n\nVerbatim excerpt (Sec. 3.1.1): \"Consider an agreement-based test as follows, which is commonly used in the literature of data quality control (Krippendorff et al., 1989; Krippendorff, 2004; Artstein and Poesio, 2008; Monarch, 2021).\" A theoretical economics/contract-design paper (principal-agent models of annotator monitoring and incentive design) that discusses agreement-based monitoring conceptually and analytically, using real preference datasets (PKU, Helpsteer, Ultra, Skywork) only to illustrate theoretical bounds; it reports no primary empirical IRR value of its own."
   },
   {
     "paper_id": "H1-lhbench",
@@ -117,7 +365,23 @@
     "category": "H",
     "title": "LH-Bench: Skill-Grounded Evaluation of Long-Horizon Agents on Subjective Enterprise Tasks",
     "year": 2026,
-    "excerpt": "Abstract: We introduce LH-Bench, a three-pillar evaluation design that moves beyond binary correctness to score autonomous, long-horizon execution on subjective enterprise tasks. The pillars are: (i) expert-grounded rubrics that give LLM judges the domain context needed to score subjective work, (ii) curated ground-truth artifacts that enable stepwise reward signals, and (iii) pairwise human preference evaluation for convergent validation. We show that domain-authored rubrics provide substantially more reliable evaluation signals than LLM-authored rubrics (kappa = 0.60 vs. 0.46), and that human preference judgments confirm the same top-tier separation (p < 0.05).\n\nEvaluation methodology: Cohen's kappa is reported for domain rubrics (kappa=0.60) and LLM-authored rubrics (kappa=0.46). The abstract states 'judges' in the plural, suggesting a multi-judge design. The rubric-based evaluation involves ordinal or multi-dimensional scoring of subjective enterprise task quality. The number of judges and whether they form a fixed panel or rotate is not specified in the abstract."
+    "excerpt": "Abstract: We introduce LH-Bench, a three-pillar evaluation design that moves beyond binary correctness to score autonomous, long-horizon execution on subjective enterprise tasks. The pillars are: (i) expert-grounded rubrics that give LLM judges the domain context needed to score subjective work, (ii) curated ground-truth artifacts that enable stepwise reward signals, and (iii) pairwise human preference evaluation for convergent validation. We show that domain-authored rubrics provide substantially more reliable evaluation signals than LLM-authored rubrics (kappa = 0.60 vs. 0.46), and that human preference judgments confirm the same top-tier separation (p < 0.05).\n\nVerbatim excerpt (Sec. 7.6, \"Inter-Judge Agreement\"): \"We use three judges from different model families (Gemini 3.1 Pro, Claude Sonnet 4.6, GPT-5.2) and report cross-judge variance and Cohen's kappa (quadratic weights) as our primary agreement measures... Mean pairwise Cohen's kappa (quadratic weights) is 0.60 (n=92 runs, 360 ratings).\" Rubric scores are ordinal (1-5 per dimension)."
+  },
+  {
+    "paper_id": "H2-agentic-benchmark-best-practices",
+    "zotero_key": "PVUB9L9K",
+    "category": "H",
+    "title": "Establishing Best Practices for Building Rigorous Agentic Benchmarks",
+    "year": 2025,
+    "excerpt": "Abstract: Benchmarks are essential for quantitatively tracking progress in AI. As AI agents become increasingly capable, researchers and practitioners have introduced agentic benchmarks to evaluate agents on complex, real-world tasks. However, we show that many agentic benchmarks have issues in task setup or reward design... we introduce the Agentic Benchmark Checklist (ABC).\n\nVerbatim excerpt (Sec. 3): \"we identified two significant threats in the evaluation rigor of agentic benchmarks: outcome validity and task validity... We applied ABC to thoroughly assess ten selected benchmarks.\" A checklist-based benchmark audit (0/1-point items per benchmark) scored by the authors themselves; no inter-rater reliability metric between multiple independent coders is reported."
+  },
+  {
+    "paper_id": "H3-survey-llm-agent-eval",
+    "zotero_key": "373AKYDL",
+    "category": "H",
+    "title": "Survey on Evaluation of LLM-based Agents",
+    "year": 2026,
+    "excerpt": "Abstract: LLM-based agents represent a paradigm shift in AI, enabling autonomous systems to plan, reason, and use tools while interacting with dynamic environments. This paper provides the first comprehensive survey of evaluation methods for these increasingly capable agents.\n\nVerbatim excerpt: a survey/taxonomy paper reviewing agent capabilities, application-specific benchmarks, generalist-agent evaluation, and evaluation frameworks/tools; it discusses others' metrics (unit tests, state matching, answer matching, pass^k) but does not itself conduct a primary rater study or report any IRR value."
   },
   {
     "paper_id": "I0-instructgpt",
@@ -125,7 +389,7 @@
     "category": "I",
     "title": "Training language models to follow instructions with human feedback (InstructGPT)",
     "year": 2022,
-    "excerpt": "Abstract: Making language models bigger does not inherently make them better at following a user's intent. We show an avenue for aligning language models with user intent on a wide range of tasks by fine-tuning with human feedback, starting with a set of labeler-written prompts and labeler demonstrations of the desired model behavior, then collecting labeler rankings of outputs.\n\nEvaluation methodology: Approximately 40 contractors (rotating annotator pool) provide pairwise preference rankings across SFT (13k), RM (33k), and PPO (31k) annotation sets. The annotation scale is a 4-way preference ranking (ordered: A > B > C > D). The paper reports raw percent agreement of 72-77% between annotators. No chance-corrected reliability metric (kappa, alpha) is reported. The rotating pool of 40 contractors across tens of thousands of examples is a design that requires Krippendorff's alpha for a rotating-rater ordinal design."
+    "excerpt": "Abstract: Making language models bigger does not inherently make them better at following a user's intent. We show an avenue for aligning language models with user intent on a wide range of tasks by fine-tuning with human feedback, starting with a set of labeler-written prompts and labeler demonstrations of the desired model behavior, then collecting labeler rankings of outputs.\n\nVerbatim excerpt (Sec. 3.4, p.6): \"Despite the complexity of the task, we find that inter-annotator agreement rates are quite high: training labelers agree with each-other 72±1.5% of the time, while for held-out labelers this number is 77±1.3% of the time.\" Sec. 3.5 describes labelers ranking K=4-9 responses per prompt (pairwise comparisons), drawn from a pool of about 40 contractors. No chance-corrected metric (Cohen's kappa, Fleiss' kappa, Krippendorff's alpha) appears in the reported methodology."
   },
   {
     "paper_id": "I1-jafari",
@@ -133,7 +397,7 @@
     "category": "I",
     "title": "Expert Evaluation and the Limits of Human Feedback in Mental Health AI Safety Testing",
     "year": 2026,
-    "excerpt": "Abstract: Learning from human feedback (LHF) assumes that expert judgments, appropriately aggregated, yield valid ground truth for training and evaluating AI systems. We tested this assumption in mental health, recruiting three certified psychiatrists to evaluate LLM responses to mental health scenarios using a multi-factor ordinal rubric.\n\nEvaluation methodology: Three certified psychiatrists (fixed panel of 3) independently rate LLM responses on a multi-factor ordinal rubric. ICC (intraclass correlation coefficient) and Krippendorff's alpha are reported as reliability metrics. Results: ICC = 0.087 to 0.295 (far below any acceptable threshold); Krippendorff's alpha = -0.203 for one factor (worse than chance agreement). Expert disagreement was systematic rather than random, reflecting distinct clinical philosophies. The paper uses structurally correct metrics (ICC + alpha for multi-rater ordinal design) and explicitly states threshold comparisons."
+    "excerpt": "Abstract: Learning from human feedback (LHF) assumes that expert judgments, appropriately aggregated, yield valid ground truth for training and evaluating AI systems. We tested this assumption in mental health, recruiting three certified psychiatrists to evaluate LLM responses to mental health scenarios using a multi-factor ordinal rubric.\n\nVerbatim excerpt (Sec. 3.4/4.1, pp.7-8): \"we computed intraclass correlation coefficients (ICC) as the primary reliability metric, reporting ICC(2,1) for single-rater reliability and ICC(2,k) for averaged reliability... As a secondary metric... we computed Krippendorff's alpha, where alpha < 0.67 indicates data that should not be relied upon.\" Results: \"All ICC(2,1) values fall below 0.40... Four factors show negative alpha values... (alpha=-0.203).\" Three fixed psychiatrists rate LLM responses on an ordinal, multi-factor rubric."
   },
   {
     "paper_id": "I2-piot-xrr",
@@ -141,7 +405,7 @@
     "category": "I",
     "title": "Can LLMs Evaluate What They Cannot Annotate? Revisiting LLM Reliability in Hate Speech Detection",
     "year": 2025,
-    "excerpt": "Abstract: We examine whether LLMs can reliably evaluate content they struggle to annotate, focusing on hate speech detection. We introduce cross-Rater Reliability (xRR), a novel metric that accounts for annotator subjectivity. Traditional metrics like Cohen's kappa are shown to oversimplify disagreement by treating it as error rather than meaningful diversity. LLMs reproduce similar ranking patterns to humans but diverge at the instance level.\n\nEvaluation methodology: The paper explicitly critiques Cohen's kappa for subjective annotation tasks. The study proposes xRR (cross-Rater Reliability) as an alternative metric that treats disagreement as potentially meaningful rather than error. Multiple annotators evaluate hate speech content with nominal categorical labels. Standard IRR metrics (kappa, alpha) are critiqued; xRR is proposed as the primary reliability measure. xRR is not a metric in the standard IRR instrument (Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, ICC, percentage agreement)."
+    "excerpt": "Abstract: We examine whether LLMs can reliably evaluate content they struggle to annotate, focusing on hate speech detection. We introduce cross-Rater Reliability (xRR), a novel metric that accounts for annotator subjectivity. Traditional metrics like Cohen's kappa are shown to oversimplify disagreement by treating it as error rather than meaningful diversity. LLMs reproduce similar ranking patterns to humans but diverge at the instance level.\n\nVerbatim excerpt (Sec. 3.4, p.4): \"Traditional metrics such as Cohen's kappa (Cohen, 1960) and Fleiss's kappa (Shrout and Fleiss, 1979) are commonly used to assess annotation consistency. However, they often underestimate reliability in socially grounded tasks, as they penalise legitimate subjective variation.\" The paper proposes xRR as an alternative; three LLMs act as pseudo-raters with majority vote. xRR does not appear in the standard IRR instrument (Cohen's kappa, Fleiss' kappa, Krippendorff's alpha, ICC, percentage agreement)."
   },
   {
     "paper_id": "I3-kunilovskaya",
@@ -149,7 +413,7 @@
     "category": "I",
     "title": "Who Annotates in NLP? A Large-Scale Assessment of Human Annotation Reporting between 2018 and 2025",
     "year": 2026,
-    "excerpt": "Abstract: We conduct a large-scale meta-analysis of annotation reporting practices in NLP papers published between 2018 and 2025. The study examines what information is reported about annotators, annotation methodology, and reliability metrics across major NLP venues.\n\nEvaluation methodology: This is a meta-audit paper. It does not itself have annotators or measure inter-rater reliability. The paper analyzes the annotation reporting practices of other papers. Key finding: papers often omit details needed to assess annotation validity, including agreement values. Annotation reporting has improved but remains uneven across venues and years. The paper itself has no rater design, no measurement scale, and no IRR metric — it is an analysis of how other papers report (or fail to report) these elements."
+    "excerpt": "Abstract: We conduct a large-scale meta-analysis of annotation reporting practices in NLP papers published between 2018 and 2025. The study examines what information is reported about annotators, annotation methodology, and reliability metrics across major NLP venues.\n\nVerbatim excerpt (Abstract/Sec. 1, p.1): \"We provide the first large-scale, task-level audit of human annotation reporting across major NLP venues.\" This is a meta-audit of other papers' annotation-reporting practices; the paper does not conduct its own annotation study and reports no inter-rater reliability metric of its own."
   },
   {
     "paper_id": "I4-james",
@@ -157,6 +421,22 @@
     "category": "I",
     "title": "Counting on Consensus: Selecting the Right Inter-annotator Agreement Metric for NLP Annotation and Evaluation",
     "year": 2026,
-    "excerpt": "Abstract: This paper provides a comprehensive guide to selecting the appropriate inter-annotator agreement (IAA) metric for NLP annotation and evaluation tasks. We argue against one-size-fits-all metric use and organize metrics by task type, annotation design, and data characteristics. The guide addresses label imbalance and missing data as confounders that affect metric choice.\n\nEvaluation methodology: This is a survey/guide paper. It does not itself conduct annotation or measure inter-rater reliability between raters. The paper provides structured decision guidance for metric selection (when to use kappa vs. alpha vs. ICC, etc.). No rater design is present in this paper itself. No reliability values are reported — the paper discusses reliability values from other studies. The paper itself has no IRR metric, no rater panel, and no measurement scale."
+    "excerpt": "Abstract: This paper provides a comprehensive guide to selecting the appropriate inter-annotator agreement (IAA) metric for NLP annotation and evaluation tasks. We argue against one-size-fits-all metric use and organize metrics by task type, annotation design, and data characteristics. The guide addresses label imbalance and missing data as confounders that affect metric choice.\n\nVerbatim excerpt (Abstract, p.1): \"This paper outlines how inter-annotator agreement (IAA) has been conceptualised and applied across NLP... The paper aims to serve as a guide for selecting and interpreting agreement measures.\" This is a methods guide, not a primary study; it reports no raters or IRR metric of its own."
+  },
+  {
+    "paper_id": "I5-dialectal-toxicity",
+    "zotero_key": "GM7T2YUA",
+    "category": "I",
+    "title": "Dialectal Toxicity Detection: Evaluating LLM-as-a-Judge Consistency Across Language Varieties",
+    "year": 2024,
+    "excerpt": "Abstract: There has been little systematic study on how dialectal differences affect toxicity detection by modern LLMs... we evaluated three LLMs on their ability to assess toxicity across multilingual, dialectal, and LLM-human consistency... the weakest area is LLM-human agreement, followed by dialectal consistency.\n\nVerbatim excerpt (Sec. 3.2, Consistency Evaluation Metrics): \"LLM-Human Consistency (Clh)... provides an aggregate measure of how consistently the LLM reproduces human judgments across different dialects.\" Table 3 reports this as a raw accuracy-style percentage (e.g. Phi-3 49.83%, Aya-23 49.14%, NeMo 48.48%) against pre-existing ToxiGen human intent labels; no chance-corrected agreement metric (kappa/alpha) is used."
+  },
+  {
+    "paper_id": "I6-agentatlas",
+    "zotero_key": "Y67FXWZE",
+    "category": "I",
+    "title": "AgentAtlas: Beyond Outcome Leaderboards for LLM Agents",
+    "year": 2026,
+    "excerpt": "Abstract: Large language model agents now act on codebases, browsers, operating systems, calendars, files, and tool ecosystems, but their evaluations often collapse behavior into final task success. AgentAtlas reframes agent evaluation as a diagnostic vocabulary and audit protocol...\n\nVerbatim excerpt (Sec. 7.1, Scope and Validity Caveats): \"The items and gold labels are synthetic and generated by one model family; no human-calibrated validation subset is available.\" The paper's own synthetic-demonstration study explicitly lacks any human-calibrated ground truth; it cites another paper's kappa (\"Cemri et al. ... kappa=0.88\") in a reference list entry but reports no IRR value of its own -- a taxonomy/audit paper in the same vein as I2/I3/I4, not a benchmark being scored for misuse."
   }
 ]

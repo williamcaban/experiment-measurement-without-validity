@@ -122,6 +122,14 @@ def build_user_prompt(paper_id: str, title: str, excerpt: str) -> str:
 # ── API call with retry ───────────────────────────────────────────────────────
 def call_model(client: OpenAI, model_id: str, model_name: str,
                paper_id: str, title: str, excerpt: str) -> str:
+    extra_body = {}
+    max_tokens = MAX_TOKENS
+    if model_name == "nemotron":
+        # low_effort thinking still exhausted the token budget on the two
+        # longest excerpts (finish_reason=length twice). Disable thinking
+        # entirely for a direct answer, and give it more headroom.
+        extra_body["chat_template_kwargs"] = {"enable_thinking": False}
+        max_tokens = 3000
     for attempt in range(MAX_RETRIES):
         try:
             resp = client.chat.completions.create(
@@ -131,9 +139,20 @@ def call_model(client: OpenAI, model_id: str, model_name: str,
                     {"role": "user",   "content": build_user_prompt(paper_id, title, excerpt)},
                 ],
                 temperature=0,    # deterministic — required for reproducibility
-                max_tokens=MAX_TOKENS,
+                max_tokens=max_tokens,
+                extra_body=extra_body or None,
             )
-            return resp.choices[0].message.content.strip()
+            content = resp.choices[0].message.content
+            if content is None or not content.strip():
+                # Empty completion (e.g. provider returned only a refusal/finish_reason
+                # with no text). Treat as retryable rather than crashing the parser.
+                print(f"    [{model_name}] Empty completion (attempt {attempt+1}) — "
+                      f"finish_reason={getattr(resp.choices[0], 'finish_reason', '?')}")
+                if attempt < MAX_RETRIES - 1:
+                    time.sleep(5)
+                    continue
+                return "ERROR: empty completion after max retries"
+            return content.strip()
         except Exception as exc:
             err = str(exc)
             if "429" in err or "rate limit" in err.lower():

@@ -5,39 +5,39 @@ Papers coded:  20
 Raters:        author, nemotron, gemma, qwen
 
 ── Krippendorff's α (Q4: Structural Validity) ──
-  4-way α (all raters):  0.508
+  4-way α (all raters):  0.564
   Threshold (exploratory): ≥ 0.67
   △ Below threshold — report with caution
 
 ── Pairwise α ──
-  author↔gemma                   α = 0.651
-  author↔nemotron                α = 0.623
-  author↔qwen                    α = 0.506
-  gemma↔qwen                     α = 0.251
-  nemotron↔gemma                 α = 0.847
-  nemotron↔qwen                  α = 0.197
+  author↔gemma                   α = 0.723
+  author↔nemotron                α = 0.784
+  author↔qwen                    α = 0.385
+  gemma↔qwen                     α = 0.326
+  nemotron↔gemma                 α = 1.000
+  nemotron↔qwen                  α = 0.343
 
 ── Per-Paper Q4 Codes ──
 Paper                           Auth  Nemo  Gemm  Qwen   Maj  Con
 -----------------------------------------------------------------
 A1-taubench                      ABS   ABS   ABS   ABS   ABS    ✓
-A2-osworld                       ABS   ABS   ABS   ABS   ABS    ✓
+A2-osworld                       ABS   ABS   ABS   INC   ABS    ✓
 B1-agentprop                      OK     ?   INC    OK    OK    △
-C1-webarena-verified              OK   INC    MM    OK    OK    △
+C1-webarena-verified              OK     ?    OK    OK    OK    ✓
 C4-reliable-decision              OK    MM    MM    OK    OK    △
-C5-yamauchi                       MM   INC   INC   ABS   INC    △
-D1-judges-verdict                 MM    MM    MM    OK    MM    ✓
+C5-yamauchi                       MM     ?   INC   ABS    MM    △
+D1-judges-verdict                 MM     ?    MM    OK    MM    △
 D2-multi-llm-thematic             MM    MM    MM    OK    MM    ✓
 E1-agentprocessbench              MM    MM    MM    OK    MM    ✓
 E3-webvoyager                    INC   INC   INC   INC   INC    ✓
-F3-multiagent-debate             ABS   ABS   ABS   ABS   ABS    ✓
+F3-multiagent-debate             ABS   ABS   ABS   INC   ABS    ✓
 F4-judgebiasbench                ABS   ABS   ABS   ABS   ABS    ✓
 G1-annotation-alignment          ABS   ABS   ABS   INC   ABS    ✓
-G2-chatbot-arena                 ABS   INC   INC   ABS   ABS    △
+G2-chatbot-arena                 ABS   INC   INC   INC   INC    ✓
 H1-lhbench                        MM    MM    MM    OK    MM    ✓
 I0-instructgpt                   INC   INC   INC   INC   INC    ✓
-I1-jafari                         OK   INC    OK    OK    OK    ✓
-I2-piot-xrr                      ABS   ABS   ABS   INC   ABS    ✓
+I1-jafari                         OK     ?    OK    OK    OK    ✓
+I2-piot-xrr                      ABS   ABS   ABS   ABS   ABS    ✓
 I3-kunilovskaya                  ABS   ABS   ABS   ABS   ABS    ✓
 I4-james                         ABS   ABS   ABS   ABS   ABS    ✓
 
@@ -50,5 +50,5 @@ I4-james                         ABS   ABS   ABS   ABS   ABS    ✓
   → Non-OK (majority vote): 16 / 20 = 80%
 
 ── §5.2 Update Paragraph (draft) ──
-To assess coding reliability, we selected a stratified random sample of N=20 papers (36% of the corpus, proportionally allocated across the nine topic categories) and coded them independently using three LLM raters from distinct model families (NVIDIA Nemotron-Ultra-550B; Google Gemma-4-31B; Alibaba Qwen3-80B-A3B). Each LLM rater received only the coding instrument and the paper's abstract and evaluation methodology passage, with no access to the primary-rater codes. Four-way Krippendorff's α across the author and three LLM raters for the structural validity dimension (Q4) was α = 0.51. This falls below the exploratory threshold of α ≥ 0.67; we treat the 55-paper prevalence estimate as a structured expert estimate rather than an IRR-validated finding, and note this as a limitation.
+To assess coding reliability, we selected a stratified random sample of N=20 papers (36% of the corpus, proportionally allocated across the nine topic categories) and coded them independently using three LLM raters from distinct model families (NVIDIA Nemotron-Ultra-550B; Google Gemma-4-31B; Alibaba Qwen3-80B-A3B). Each LLM rater received only the coding instrument and the paper's abstract and evaluation methodology passage, with no access to the primary-rater codes. Four-way Krippendorff's α across the author and three LLM raters for the structural validity dimension (Q4) was α = 0.56. This falls below the exploratory threshold of α ≥ 0.67; we treat the 55-paper prevalence estimate as a structured expert estimate rather than an IRR-validated finding, and note this as a limitation.
 ============================================================
