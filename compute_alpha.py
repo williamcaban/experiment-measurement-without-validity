@@ -49,6 +49,23 @@ def compute_alpha_4way(pivot: pd.DataFrame, raters: list[str]) -> float:
         value_domain=list(Q4_ENC.values())
     )
 
+def compute_fleiss_kappa(pivot: pd.DataFrame, raters: list[str]) -> float:
+    """Fleiss' kappa for a complete matrix (rows=items, cols=raters), nominal.
+    Rule R3 of the paper prescribes Fleiss' kappa for >=3 raters, complete
+    matrix, nominal scale; it is reported alongside Krippendorff's alpha.
+    Returns nan if any rating is missing."""
+    data = pivot[raters].values.astype(float)
+    if np.isnan(data).any():
+        return float("nan")
+    cats = sorted(Q4_ENC.values())
+    counts = np.array([[np.sum(row == c) for c in cats] for row in data])
+    n_raters = data.shape[1]
+    p_i = ((counts ** 2).sum(axis=1) - n_raters) / (n_raters * (n_raters - 1))
+    p_bar = p_i.mean()
+    p_j = counts.sum(axis=0) / counts.sum()
+    p_e = (p_j ** 2).sum()
+    return float((p_bar - p_e) / (1 - p_e))
+
 def compute_alpha_pair(a: np.ndarray, b: np.ndarray) -> float:
     data = np.array([a, b], dtype=float)
     return krippendorff.alpha(
@@ -119,6 +136,8 @@ def main():
 
     lines.append("── Krippendorff's α (Q4: Structural Validity) ──")
     lines.append(f"  4-way α (all raters):  {alpha_4way:.3f}")
+    fk = compute_fleiss_kappa(pivot, raters)
+    lines.append(f"  4-way Fleiss' κ (Rule R3, complete nominal matrix): {fk:.3f}")
     lines.append(f"  Threshold (exploratory): ≥ 0.67")
     if alpha_4way >= 0.67:
         lines.append(f"  ✓ MEETS exploratory threshold")
@@ -161,22 +180,18 @@ def main():
 
     lines.append("── §5.2 Update Paragraph (draft) ──")
     lines.append(
-        "To assess coding reliability, we selected a stratified random sample of "
-        f"N={len(pivot)} papers ({len(pivot)/55*100:.0f}% of the corpus, proportionally "
-        "allocated across the nine topic categories) and coded them independently using "
-        "three LLM raters from distinct model families (NVIDIA Nemotron-Ultra-550B; "
-        "Google Gemma-4-31B; Alibaba Qwen3-80B-A3B). Each LLM rater received only the "
-        "coding instrument and the paper's abstract and evaluation methodology passage, "
-        "with no access to the primary-rater codes. "
-        f"Four-way Krippendorff's α across the author and three LLM raters for the "
-        f"structural validity dimension (Q4) was α = {alpha_4way:.2f}. "
-        + ("This meets the exploratory reliability threshold of α ≥ 0.67 adopted in the "
-           "prescriptions of this paper, providing IRR-validated support for the 55-paper "
-           "coding scheme and the 82% IRR misuse prevalence reported."
-           if alpha_4way >= 0.67 else
-           "This falls below the exploratory threshold of α ≥ 0.67; we treat the "
-           "55-paper prevalence estimate as a structured expert estimate rather than an "
-           "IRR-validated finding, and note this as a limitation.")
+        "To assess coding reliability, a stratified subsample of N=20 papers (36% of "
+        "the corpus; 2, 1, 3, 2, 2, 2, 2, 1, and 5 papers from categories A-I) was coded "
+        "independently by three LLM raters from distinct model families (NVIDIA "
+        "Nemotron-Ultra-550B; Google Gemma-4-31B; Alibaba Qwen3-80B-A3B). Each LLM rater "
+        "received the coding instrument together with the paper's abstract and a verbatim "
+        "excerpt from its evaluation-methodology text, with no access to the primary-rater "
+        "codes. Four-way agreement across the author and the three LLM raters on the "
+        f"structural validity dimension (Q4) was Fleiss' kappa = {fk:.2f} and "
+        f"Krippendorff's alpha = {alpha_4way:.2f}. This falls below the exploratory "
+        "threshold of alpha >= 0.67; the 55-paper prevalence estimate is therefore treated "
+        "as a structured expert estimate rather than an IRR-validated finding, and this is "
+        "noted as a limitation."
     )
     lines.append("="*60)
 

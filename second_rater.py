@@ -125,11 +125,14 @@ def call_model(client: OpenAI, model_id: str, model_name: str,
     extra_body = {}
     max_tokens = MAX_TOKENS
     if model_name == "nemotron":
-        # low_effort thinking still exhausted the token budget on the two
-        # longest excerpts (finish_reason=length twice). Disable thinking
-        # entirely for a direct answer, and give it more headroom.
+        # Nemotron reasons before answering. The enable_thinking=False flag is
+        # passed but is NOT honored by the OpenRouter provider for this model
+        # (verified 2026-09-28: a 3000-token budget returned reasoning_tokens=3000,
+        # finish_reason=length and empty content on one excerpt). The budget is
+        # therefore set high enough for reasoning plus the 4-line answer; the
+        # flag is retained so the request is identical to earlier runs.
         extra_body["chat_template_kwargs"] = {"enable_thinking": False}
-        max_tokens = 3000
+        max_tokens = 8000
     for attempt in range(MAX_RETRIES):
         try:
             resp = client.chat.completions.create(
@@ -186,6 +189,13 @@ def main():
         RESULTS_FILE.parent.mkdir(parents=True)
 
     excerpts = json.loads(EXCERPTS_FILE.read_text())
+    # excerpts.json carries verbatim excerpts for all 55 scanned papers; the
+    # reliability study codes only the 20-paper stratified subsample listed in
+    # author_codes.csv.
+    with open(Path(__file__).parent / "author_codes.csv", newline="") as fh:
+        subsample = {row["paper_id"] for row in csv.DictReader(fh)}
+    excerpts = [e for e in excerpts if e["paper_id"] in subsample]
+    assert len(excerpts) == 20, f"expected 20 subsample excerpts, found {len(excerpts)}"
 
     # Resume: skip already-coded papers
     done: set[str] = set()
