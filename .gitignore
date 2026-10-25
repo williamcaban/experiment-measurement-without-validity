@@ -13,6 +13,10 @@ venv/
 # OS
 .DS_Store
 
+# Editor
+.vscode/
+.idea/
+
 # Extracted primary-source text — NEVER commit.
 # The 55 papers are third-party copyrighted works. Replication does not mean
 # redistributing them: it means another researcher obtains the same PDFs

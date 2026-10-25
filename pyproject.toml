@@ -30,3 +30,13 @@ dependencies = [
 
 [tool.uv]
 package = false
+
+# Editor tooling only, deliberately NOT a project dependency: none of this is
+# part of the method and none of it is needed to reproduce the reported numbers.
+# VS Code's Data Wrangler opens a dataframe by starting a kernel in the selected
+# interpreter, so the interpreter needs ipykernel even though no script imports
+# it. Install with:  uv sync --group dev
+[dependency-groups]
+dev = [
+    "ipykernel>=7.1.1",
+]
