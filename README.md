@@ -79,6 +79,25 @@ the SHA-256 of each extracted text. Once you have the PDFs, `extract.py`
 verifies every checksum and will refuse to proceed on a mismatch, so you can
 confirm byte-identical stimulus reconstruction before running anything.
 
+### What the extracted text contains
+
+The stimulus is a faithful extraction, not a cleaned-up one, so it carries the
+usual marks of real PDFs: ligatures (`fi`, `ff`), Greek letters used as symbols
+(the papers write Cohen's kappa as a Greek kappa), mathematical operators,
+smart quotes, form feeds at page boundaries, and a few hundred font-specific
+Private Use Area codepoints that display equations use for stretchy
+delimiters. Across 4.8M characters, 0.44% is non-ASCII and 0.016% falls in
+those control or private-use classes.
+
+None of it is normalised away, because normalising would mean editing the
+stimulus the raters actually saw. Spot-checked: no coefficient name is affected
+(every Private Use Area codepoint near an inter-rater term sits inside a
+display equation, not inside a word), which is why the lexical audit matches
+cleanly. `stimulus_fulltext.json` is written with ASCII escapes so it can be
+opened safely in an editor that warns about ambiguous Unicode; the escaping is
+an on-disk encoding only, since the checksums are computed over the decoded
+text.
+
 ## Pipeline
 
 ```bash

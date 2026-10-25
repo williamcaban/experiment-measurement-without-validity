@@ -136,7 +136,15 @@ def extract_all() -> list[dict]:
 def build() -> None:
     recs = extract_all()
 
-    STIMULUS.write_text(json.dumps(recs, ensure_ascii=False, indent=1) + "\n")
+    # ensure_ascii=True by design. The stimulus is a faithful extraction of real
+    # PDFs, so it legitimately contains ligatures, Greek letters, math operators,
+    # form feeds and a few font-specific Private Use Area glyphs from display
+    # equations. Those are kept in the text, because normalising them would mean
+    # editing the stimulus the raters actually saw. Escaping them on disk is a
+    # different matter: text_sha256 is computed over the decoded string, not over
+    # the file bytes, so escaping changes no hash and no rater input while making
+    # the file safe to open in an editor that warns about ambiguous Unicode.
+    STIMULUS.write_text(json.dumps(recs, ensure_ascii=True, indent=1) + "\n")
 
     with open(HASHES, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=HASH_FIELDS)
