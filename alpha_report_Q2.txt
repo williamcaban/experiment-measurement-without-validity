@@ -1,0 +1,90 @@
+====================================================================
+SECOND-RATER IRR EXPERIMENT - RELIABILITY REPORT
+====================================================================
+results file   : results_fulltext.csv
+question       : Q2  (vocabulary: F2, FN, RV, CS, UNK)
+papers         : 55
+model raters   : nemotron, gemma, qwen
+author rater   : yes
+runs           : 5  (1, 2, 3, 4, 5)
+
+-- cell census ------------------------------------------------------
+  expected cells (papers x models x runs) : 825
+  present in results                      : 825
+  missing                                 : 0
+
+-- between-rater agreement, computed separately for each run --------
+   (runs are NOT treated as extra raters: that would mix disagreement
+    between raters with instability within one rater)
+
+    run    alpha   Fleiss k  blocked  n items
+   ------------------------------------------
+      1   0.351      0.348        0       55
+      2   0.390      0.387        0       55
+      3   0.383      0.380        0       55
+      4   0.371      0.368        0       55
+      5   0.365      0.362        0       55
+
+   HEADLINE  median alpha over 5 run(s) = 0.371   [min 0.351, max 0.390]
+   tentative floor 0.667 / reliable 0.800 -> BELOW floor
+   This is the reliability a practitioner coding once would get.
+
+-- pairwise alpha ---------------------------------------------------
+   author / gemma           median  0.591  [ 0.591,  0.615]  n_runs=5
+   author / nemotron        median  0.562  [ 0.510,  0.603]  n_runs=5
+   author / qwen            median  0.029  [ 0.017,  0.057]  n_runs=5
+   gemma / qwen             median  0.110  [ 0.070,  0.128]  n_runs=5
+   nemotron / gemma         median  0.687  [ 0.613,  0.709]  n_runs=5
+   nemotron / qwen          median  0.123  [ 0.113,  0.154]  n_runs=5
+
+-- within-rater stability across runs -------------------------------
+   the share of papers where a model gave the SAME code every run.
+   This is rater non-determinism, and it is not inter-rater
+   disagreement; the two are reported apart on purpose.
+
+   nemotron   identical on  43/55  papers ( 78%)   varied  12   incomplete   0
+   gemma      identical on  52/55  papers ( 95%)   varied   3   incomplete   0
+   qwen       identical on  49/55  papers ( 89%)   varied   6   incomplete   0
+
+-- SECONDARY: alpha on each rater's modal code across runs ----------
+   alpha  0.370   Fleiss k  0.367 (blocked 0)
+   Shows what repeated sampling buys. It is NOT the headline: no
+   practitioner codes a paper five times and takes the mode.
+
+-- prevalence -------------------------------------------------------
+   author (55 papers):
+     F2    11   20.0%
+     FN     8   14.5%
+     RV     8   14.5%
+     CS     4    7.3%
+     UNK   24   43.6%
+   nemotron (275 codings over 5 run(s)):
+     F2    37   13.5%
+     FN    88   32.0%
+     RV    32   11.6%
+     CS    17    6.2%
+     UNK  101   36.7%
+   gemma (275 codings over 5 run(s)):
+     F2    35   12.7%
+     FN    73   26.5%
+     RV    58   21.1%
+     CS    20    7.3%
+     UNK   89   32.4%
+   qwen (275 codings over 5 run(s)):
+     F2    13    4.7%
+     FN   190   69.1%
+     RV    25    9.1%
+     CS    24    8.7%
+     UNK   23    8.4%
+
+-- serving provenance ----------------------------------------------
+   which provider answered. A model served at two quantizations is
+   two functions, so routing spread belongs in the record.
+   nemotron   providers: BaseTen=117, DeepInfra=158
+              pinned quantization: fp4
+   gemma      providers: DeepInfra=275
+              pinned quantization: fp8
+   qwen       providers: DeepInfra=4, Parasail=271
+              pinned quantization: fp8
+
+====================================================================

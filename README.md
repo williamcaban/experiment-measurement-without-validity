@@ -1,108 +1,166 @@
 # Second-Rater IRR Coding Experiment
 
-## Purpose
+Supporting code and data for the reliability check in "Measurement Without
+Validity: The Compounding Reliability Problem in Agentic AI Evaluation"
+(KNOSYS-D-26-17924, Knowledge-Based Systems).
 
-Supports the IRR metric misuse finding in "Measurement Without Validity:
-The Compounding Reliability Problem in Agentic AI Evaluation"
-(KNOSYS-D-26-17924, revised August 2026).
+## What this measures
 
-Validates the coding instrument reliability by running 3 LLMs from different
-model families as independent second raters on a stratified subsample of 20
-papers from the 55-paper purposive literature scan. The four-rater (author +
-3 LLMs) agreement (Fleiss' κ = 0.48; Krippendorff's α = 0.49) falls below the exploratory reliability
-threshold of α ≥ 0.67 adopted in the paper. The 55-paper IRR-misuse-rate
-finding is therefore reported as a structured expert estimate rather than an
-IRR-validated finding, and this reliability check itself is documented as a
-limitation (see paper Section 10.1).
+The paper's literature scan codes 55 agentic-evaluation papers on four
+questions and finds that 80% of them misuse or omit inter-rater reliability.
+That scan was coded by the author, so this experiment asks whether the coding
+is reproducible: three LLMs from different model families independently apply
+the same coding instrument to the same 55 papers, and agreement is computed
+against the author's codes.
 
-## Setup
+Reliability depends on what is being coded:
+
+| Coding dimension | Krippendorff's alpha | Fleiss' kappa |
+|---|---|---|
+| Q1 which coefficient the authors computed | **0.834** | 0.818-0.846 |
+| Q2 rater design | 0.371 | 0.348-0.387 |
+| Q3 measurement scale | 0.525 | 0.514-0.578 |
+| Q4 failure-mode judgment | 0.536 | 0.515-0.568 |
+| Q4 collapsed to correct vs. misuse | 0.549 | |
+
+Alpha is the median over five independent runs; the matrix is complete (four
+raters x 55 papers, no missing cells). The determinate question of *which*
+coefficient a paper computed is coded reliably. The interpretive judgment of
+*whether* that use is correct is not, so the paper reports the 80% figure as a
+structured expert estimate carrying a reproducibility range of 60.7% to 84.4%
+(the spread across the four raters) rather than as a validated point estimate.
+
+## Design choices that matter
+
+**The stimulus is each paper's complete text, not an excerpt.** An excerpt
+encodes the researcher's judgment about where the relevant evidence lies, and a
+rater handed a pre-selected passage cannot disagree with that choice. One paper
+in this corpus reports its Fleiss' kappa only in an appendix, so any excerpt
+drawn from the methods section would have made the correct code unreachable.
+Bibliographies are left in place deliberately: a reference-list entry naming a
+coefficient is exactly the distractor the instrument must resist.
+
+**Runs are not extra raters.** Each rater codes every paper five times.
+Alpha is computed per run and reported as a median with its range, and
+within-rater instability is reported separately from between-rater
+disagreement, because pooling the two would conflate them.
+
+**Nothing is imputed.** Missing cells are reported, unrecognised codes are
+reported as findings rather than coerced into the nearest valid code, and the
+cell census is printed on every run.
+
+## Environment
+
+Dependencies are pinned because they are part of the method: `pymupdf` fixes
+the text extraction that defines the stimulus (`corpus.py` refuses to run
+against a different version, since different extraction means a different
+stimulus checksum), and the `openai`/`httpx` pins fix retry and error
+semantics during the coding runs.
 
 ```bash
-pip install openai krippendorff pandas numpy
-export OPENROUTER_API_KEY=sk-or-YOUR_KEY_HERE
+uv sync --frozen        # installs exactly what uv.lock records
+export OPENROUTER_API_KEY=sk-or-...
 ```
 
-**OpenRouter free tier**: 20 RPM, 1000 RPD (with $10 credit purchase).
-Free models (Nemotron, Gemma, Qwen) cost $0 per call.
-The $10 unlocks the 1000 RPD limit (default is 50 RPD).
+`requirements.txt` is generated from `uv.lock` for anyone not using uv; the
+authoritative definition is `pyproject.toml` plus `uv.lock`.
+
+The coding runs were executed against a **paid OpenRouter subscription**, not
+the free tier, so rate limits and routing behaviour correspond to paid access.
+
+## The 55 PDFs are not included
+
+The coded papers are third-party copyrighted works and cannot be
+redistributed, so neither the PDFs nor the extracted text is in this
+repository. Replication means obtaining the same papers yourself.
+`manifest.csv` identifies every paper with its arXiv or DOI identifier, version,
+fetch URL, and the SHA-256 of the exact PDF used; `stimulus_hashes.csv` holds
+the SHA-256 of each extracted text. Once you have the PDFs, `extract.py`
+verifies every checksum and will refuse to proceed on a mismatch, so you can
+confirm byte-identical stimulus reconstruction before running anything.
+
+## Pipeline
+
+```bash
+uv run python extract.py                 # PDFs  -> stimulus_fulltext.json + stimulus_hashes.csv
+uv run python extract.py --verify        # re-extract and confirm hashes still match
+
+uv run python judges.py --build          # record each judge: provider, context window, quantization
+uv run python judges.py --verify         # fail if a judge's served configuration has drifted
+
+uv run python second_rater.py            # the coding runs; resumable, skips completed cells
+uv run python second_rater.py --status    # progress without making API calls
+
+uv run python validate.py --results results_fulltext.csv   # gate: binding, vocabulary, conformance, grounding
+uv run python compute_alpha.py --question Q1               # any of Q1..Q4 (default Q4)
+```
+
+`RUN_ID=n` selects the run; `STIMULUS_FILE`, `SUBSAMPLE_FILE`, `RESULTS_FILE`
+and `PIN_QUANTIZATION` override the defaults. `second_rater.py` runs a preflight
+gate that fails closed if the stimulus, instrument, judge set or served
+quantization does not match what the study froze.
+
+`audit_codes.py` is a separate check on the *author's* codes rather than a
+rater: it searches each full document for every coefficient name and flags any
+paper where the author's code and the text disagree. It is what found three
+miscoded papers, each of which is corrected in `full_scan_55papers.csv`.
+
+Tests are offline and make no API calls:
+
+```bash
+for t in test_*.py; do uv run python "$t"; done    # 165 checks
+```
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `excerpts.json` | Verbatim, full-text-verified excerpts for all 55 papers in the literature scan; the first 20 (the reliability subsample) also serve as rater input for this experiment |
-| `author_codes.csv` | Author's Q1–Q4 codes for the 20-paper reliability subsample |
-| `full_scan_55papers.csv` | Full per-paper Q1–Q4 coding table for all 55 papers in the literature scan (reproduced as Table A.2, Appendix A.3 of the paper) |
-| `second_rater.py` | Runs 3 LLMs via OpenRouter; saves results.csv |
-| `compute_alpha.py` | Computes Krippendorff's α; generates alpha_report.txt |
-| `results.csv` | Generated by second_rater.py |
-| `alpha_report.txt` | Generated by compute_alpha.py |
-| `*_v1_biased_excerpts_backup.*`, `*_v2_verbatim_prefix_backup.*` | Retained for transparency: earlier iterations of the excerpt-writing process, superseded by the current `excerpts.json`/`results.csv`/`alpha_report.txt` |
-| `*_v3_one_parse_err_backup.*` | Retained for transparency: the run in which one Nemotron rating returned an empty completion (provider ignores the disable-reasoning flag; token budget since raised) |
-| `results_unplanned_nonsubsample_2026-09-28.csv` | Ratings the script produced for non-subsample papers before it was restricted to the 20-paper subsample; not part of the reported study |
+| `manifest.csv` | The corpus definition: identifier, version, fetch URL and PDF SHA-256 for all 55 papers |
+| `papers_55.csv` | Roster mapping `paper_id` to `zotero_key` and category |
+| `full_scan_55papers.csv` | The author's Q1-Q4 codes for all 55 papers, with notes (Table A.2 in the paper) |
+| `author_codes_55.csv` | The same codes in the shape the analysis consumes |
+| `excerpts.json` | A verbatim supporting quotation for every code, so any code can be checked against its source |
+| `stimulus_hashes.csv` | SHA-256 of each extracted document: the shareable replication artifact |
+| `judge_manifest.json` | The three judges as recorded entities: model id, providers, context windows, quantizations |
+| `corpus.py` | Shared extraction library with the pinned-engine check |
+| `extract.py` | Builds and verifies the stimulus from the PDFs |
+| `judges.py` | Builds and verifies the judge manifest |
+| `second_rater.py` | Runs the coding; preflight gate, resume, failure ledger |
+| `validate.py` | The gate: binding, vocabulary, instrument conformance, evidence grounding |
+| `compute_alpha.py` | Per-run alpha and Fleiss' kappa, pairwise breakdown, stability, prevalence |
+| `audit_codes.py` | Lexical audit of the author's own codes against the full documents |
+| `results_fulltext.csv` | All 825 ratings (55 papers x 3 raters x 5 runs) |
+| `results_fulltext.failures.csv` | Failure ledger for the runs above (empty: no failures occurred) |
+| `alpha_report_Q1.txt` .. `_Q4.txt` | Output of `compute_alpha.py`, one report per coding dimension |
+| `validation_report_fulltext.txt` | Output of `validate.py` |
+| `audit_report.csv` | Output of `audit_codes.py` |
+| `test_*.py` | Offline regression tests (165 checks) |
 
-## Stratified Sample (N=20)
+## The coding instrument
 
-Stratified across the 9 topic categories of the 55-paper scan (allocation as listed below; not proportional to the final category counts).
-
-| Cat | Topic | Full scan | Sampled |
-|---|---|---|---|
-| A | Major agentic benchmarks (automated grading) | 9 | 2 (tau-bench, OSWorld) |
-| B | Automated grader validity studies | 3 | 1 (AgentProp-Bench) |
-| C | Benchmarks with formal IRR | 11 | 3 (WebArena Verified, Reliable Decision, Yamauchi) |
-| D | LLM-as-a-Judge studies | 4 | 2 (Judge's Verdict, Multi-LLM Thematic) |
-| E | Benchmarks with structural metric mismatch | 5 | 2 (AgentProcessBench, WebVoyager) |
-| F | Long-horizon and capability benchmarks | 5 | 2 (Multi-Agent Debate, JudgeBiasBench) |
-| G | Safety, RLHF, and preference evaluation | 8 | 2 (Annotation Alignment, Chatbot Arena) |
-| H | Recent 2025–2026 evaluation papers | 3 | 1 (LH-Bench) |
-| I | Safety-critical IRR failures | 7 | 5 (InstructGPT, Jafari, Piot, Kunilovskaya, James) |
-
-Full scan counts reflect the complete 55-paper coding table in
-`full_scan_55papers.csv`.
-
-## Models
-
-| Name | OpenRouter ID | Organization |
+| Q | Question | Codes |
 |---|---|---|
-| nemotron | nvidia/nemotron-3-ultra-550b-a55b | NVIDIA — 550B MoE |
-| gemma | google/gemma-4-31b-it | Google — 31B |
-| qwen | qwen/qwen3-next-80b-a3b-instruct | Alibaba — 80B MoE |
+| Q1 | Which IRR metric did the authors compute on their own annotations? | KCO, KFL, KAL, ICC, PA, NIL |
+| Q2 | What was the rater design? | F2, FN, RV, CS, UNK |
+| Q3 | What was the measurement scale? | BIN, NOM, ORD, CON, UNK |
+| Q4 | Did the metric fit the design and scale? | OK, MM, INC, ABS |
 
-## Running the Experiment
+Q1 asks what was *computed*, not what was mentioned: a reference-list entry is
+a citation, naming a coefficient is not reporting one, and a computed
+coefficient appears with a value. Appendices count.
 
-```bash
-# Step 1: Run second raters (~15-25 minutes)
-python second_rater.py
-
-# Step 2: Compute Krippendorff's α
-python compute_alpha.py
-```
-
-The script resumes automatically if interrupted — already-coded papers are skipped.
-
-## Expected Runtime
-
-- 20 papers × ~30s per paper (including 10s wait) = ~10 min
-- Add 5 min buffer for slow responses = ~15-25 min total
-
-## Q4 Coding Rules (for reference)
-
-| Code | Meaning |
-|---|---|
-| OK | Metric fits rater design + scale; threshold stated; rationale given |
-| MM | Structural mismatch (Cohen's κ for 3+ raters, or kappa for ordinal data) |
-| INC | Incomplete (% agreement only, or correct family but no threshold/rationale) |
-| ABS | No IRR metric reported (Q1=NIL) |
-
-**Rule**: If Q1=NIL → Q4=ABS (always).
-**Rule**: Apply MM before INC — structural mismatch takes priority.
+Q4: `OK` metric fits design and scale with a stated threshold and rationale;
+`MM` structural mismatch; `INC` percent agreement only, or the correct metric
+family with no threshold or rationale; `ABS` no IRR metric reported.
+Rule: if Q1 is `NIL` then Q4 is `ABS`, with no exceptions. Rule: apply `MM`
+before `INC`, because a structural mismatch takes priority.
 
 ## Citation
-
-If you use this experiment in your work:
 
 ```
 Caban, W. (2026). Measurement Without Validity: The Compounding Reliability
 Problem in Agentic AI Evaluation. Knowledge-Based Systems (under review).
 https://github.com/williamcaban/experiment-measurement-without-validity
 ```
+
+Released under the Apache 2.0 licence.

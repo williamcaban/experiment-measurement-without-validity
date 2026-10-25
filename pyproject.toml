@@ -1,0 +1,32 @@
+# Environment definition for the second-rater reliability study.
+#
+# The pins are part of the method, not housekeeping. pymupdf fixes the text
+# extraction that produces the stimulus (corpus.py refuses to run against a
+# different version, because a different extractor yields different text and so
+# a different stimulus checksum). The openai/httpx pins fix the retry and error
+# semantics of the coding runs. Reproduce the environment with:
+#
+#     uv sync --frozen
+#
+# which installs exactly what uv.lock records.
+
+[project]
+name = "experiment-measurement-without-validity"
+version = "1.0.0"
+description = "Second-rater IRR coding experiment for 'Measurement Without Validity: The Compounding Reliability Problem in Agentic AI Evaluation'"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+authors = [{ name = "William Caban" }]
+
+dependencies = [
+    "openai==2.52.0",
+    "httpx==0.28.1",
+    "krippendorff==0.8.2",
+    "pandas==3.0.5",
+    "numpy==2.5.3",
+    "pymupdf==1.27.2.2",
+]
+
+[tool.uv]
+package = false

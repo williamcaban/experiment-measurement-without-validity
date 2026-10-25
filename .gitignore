@@ -12,3 +12,24 @@ venv/
 
 # OS
 .DS_Store
+
+# Extracted primary-source text — NEVER commit.
+# The 55 papers are third-party copyrighted works. Replication does not mean
+# redistributing them: it means another researcher obtains the same PDFs
+# themselves, runs extract.py, and finds the checksums in stimulus_hashes.csv
+# match. The hashes are the shareable artifact; the text is not.
+stimulus_fulltext.json
+stimulus_*.json
+fulltext_*.json
+excerpts_verbatim.json
+excerpts_clean.json
+
+# Working backups
+*.pre*
+*.bak
+
+# Superseded working files. Kept on disk for the author's provenance only; never
+# published. The repository ships exactly the scripts and datasets needed to
+# reproduce the reported numbers, so that a reader is not left guessing which of
+# several similar files is the live one.
+_archive/

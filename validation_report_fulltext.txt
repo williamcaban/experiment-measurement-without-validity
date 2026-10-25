@@ -1,0 +1,51 @@
+====================================================================
+PROBE GATE - results validation
+====================================================================
+results   : results_fulltext.csv  (825 rows)
+stimulus  : stimulus_fulltext.json
+
+-- binding ----------------------------------------------------------
+  instrument_sha : 898169aa26191f1c (uniform)
+  stimulus_sha   : all 825 rows match stimulus_fulltext.json
+
+-- code vocabulary --------------------------------------------------
+  all 3300 codes are in vocabulary
+
+-- instrument conformance: 'if Q1=NIL then Q4=ABS (no exceptions)' --
+  gemma      Q1=NIL on 135  rule broken   0 (  0%)   Q4=ABS without Q1=NIL   1
+  nemotron   Q1=NIL on 132  rule broken   0 (  0%)   Q4=ABS without Q1=NIL   0
+  qwen       Q1=NIL on 127  rule broken  36 ( 28%)   Q4=ABS without Q1=NIL   1
+  reported, not repaired: breaking a stated rule is a measurement of
+  instrument-following, which is part of what this paper argues
+
+-- degeneracy -------------------------------------------------------
+  no rater returned a constant code vector
+
+-- grounding probe (Q1-Q3 quoted sentences) -------------------------
+   digits are stripped from both sides before matching and no numeric
+   comparison is made anywhere: see the module docstring on I3.
+
+     Q   GROUNDED  PARTIAL  NOT_FOUND  NO_QUOTE
+   --------------------------------------------
+    Q1     735  89%      10         79         1
+    Q2     703  85%      34         87         1
+    Q3     729  88%      29         66         1
+
+   GROUNDED = an 8-word run of the quote appears in the paper
+   PARTIAL  = only a 5-word run matches (paraphrase or re-wrap)
+   NOT_FOUND= no 5-word run matches; candidate invented evidence
+
+   NOT_FOUND examples:
+      A2-osworld gemma Q1: 'No recognized IRR metric (automated scoring, ELO, Pearson, or nothing)'
+      A2-osworld gemma Q2: 'Not described, or paper has no rater design'
+      A2-osworld nemotron Q3: 'The paper does not describe a measurement scale used for annotation ratings or inter-rater'
+      C5-yamauchi qwen Q3: 'The evaluation produces integer scores from 1 to 5, referring to a rubric with five ordere'
+      F3-multiagent-debate gemma Q1: 'No recognized IRR metric is computed on human or model annotations.'
+
+   Q4 is not probed: the instrument asks there for the rater's own
+   justification, which is not supposed to appear in the paper.
+
+====================================================================
+HARD FAILURES: 0
+no hard failures. Grounding rates above are diagnostic, not a gate.
+====================================================================

@@ -1,0 +1,56 @@
+paper_id,author_Q1,author_Q4,lexical_Q1_named,lexical_Q1_computed,agrees,named,computed,regions,n_values,evidence
+A1-taubench,NIL,ABS,NIL,NIL,1,,,,0,
+A2-osworld,NIL,ABS,NIL,NIL,1,,,,0,
+B1-agentprop,KCO,OK,KCO,KCO,1,KCO|PA,KCO,KCO:BODY|PA:BODY,16,2 hits occur. 7 Table 2: Judge reliability measured by Cohen’s kappa agreement. “ kappa vs. LLM majority” is computed on N = 960 P2 sessions; “ kappa vs. Human” is c
+C1-webarena-verified,KCO,OK,KCO,KCO,1,KCO,KCO,KCO:BODY,2,"leted two calibration rounds, and we report unweighted Cohen’s kappa at the task level with a point estimate of 0.83 and a 95 % bootstrap confidence interval of [0.8"
+C4-reliable-decision,KAL,OK,KCO,KCO,0,KCO|KFL|KAL|ICC|PA,KCO|KFL|KAL,KCO:BODY|KFL:BODY|KAL:BODY|ICC:POST_REFS|PA:BODY,8,"h intuitive, it does not account for chance agreement. Cohen’s Kappa ( kappa ) [11] adjusts for chance agreement between two raters on categorical data: Po − P e , k"
+C5-yamauchi,KAL,MM,KCO,NIL,0,KCO|KAL|PA,,KCO:POST_REFS|KAL:BODY|PA:POST_REFS,0,"fficient, Spearman’s rank correlation coefficient, and Cohen’s Kappa (Bai et al., 2024; Liu et al., 2024a; Thakur et al., 2025). However, these metrics have been cri"
+D1-judges-verdict,KCO,MM,KCO,KCO,1,KCO|KFL|KAL|PA,KCO|KFL|KAL|PA,KCO:BODY|KFL:BODY|KAL:BODY|PA:BODY,32,from traditional correlation analysis to comprehensive Cohen’s Kappa analysis that measures actual agreement patterns. The two-step approach includes: (1) a correlat
+D2-multi-llm-thematic,KCO,MM,KCO,KCO,1,KCO|KFL|ICC|PA,KCO|KFL|ICC,KCO:BODY|KFL:POST_REFS|ICC:POST_REFS|PA:BODY,22,"atic Analysis with Dual Reliability Metrics: Combining Cohen’s Kappa and Semantic Similarity for Qualitative Research Validation Nilesh Jain1,2 Hyungil Suh3 Seyi Ade"
+E1-agentprocessbench,KCO,MM,KCO,KCO,1,KCO|PA,KCO|PA,KCO:BODY|PA:BODY,1,"p-level inter-annotator agreement (IAA) of 89.1% and a Cohen’s kappa of 0.767, both computed over all annotated steps. All discrepancies are resolved through expert"
+E3-webvoyager,PA,INC,PA,NIL,0,PA,,PA:BODY,0,"ation, and reporting. Emergence WebVoyager achieves an inter-annotator agreement of 95.9%, indicating improved clarity and reliability in both task formulation and e"
+F3-multiagent-debate,NIL,ABS,NIL,NIL,1,,,,0,
+F4-judgebiasbench,NIL,ABS,NIL,NIL,1,,,,0,
+G1-annotation-alignment,NIL,ABS,NIL,NIL,1,,,,1,
+G2-chatbot-arena,NIL,ABS,PA,NIL,1,PA,,PA:BODY,2,"ry models. Both uses GPT-4 as judge. Table 3. Pairwise agreement rate between crowd-user, gpt-4 judge, and experts on pairwise battles. The top part of the table is"
+H1-lhbench,KCO,MM,KCO,KCO,1,KCO,KCO,KCO:BODY,14,ighest per-rubric score. kappa row shows mean pairwise Cohen’s kappa. Rank Agent / model 1 2 3 Claude Code (Opus 4.6) Codex (GPT-5.2) Gemini CLI (3.1 Pro) kappa (agr
+I0-instructgpt,PA,INC,PA,NIL,0,PA,,PA:BODY,0,"test. Despite the complexity of the task, we find that inter-annotator agreement rates are quite high: training labelers agree with each-other 72.6 ± 1.5% of the tim"
+I1-jafari,ICC,OK,KFL,ICC,1,KFL|KAL|ICC|PA,ICC,KFL:POST_REFS|KAL:BODY|ICC:BODY|PA:BODY,8,"s, inter-rater reliability was consistently poor, with ICC ranging from 0.09 to 0.30 which is well below the 0.40 threshold typically considered minimally acceptable"
+I2-piot-xrr,KCO,MM,KCO,KCO,1,KCO|KFL|KAL|ICC|PA,KCO|KFL|KAL,KCO:BODY|KFL:BODY|KAL:BODY|ICC:POST_REFS|PA:BODY,7,"ign. Traditional annotation agreement metrics, such as Cohen’s kappa , oversimplify this disagreement, treating it as an error rather than meaningful diversity. Mean"
+I3-kunilovskaya,KAL,INC,KCO,KFL,0,KCO|KFL|KAL|ICC|PA,KFL|KAL,KCO:BODY|KFL:POST_REFS|KAL:BODY|ICC:POST_REFS|PA:BODY,4,"n the paper. Do not create new names or abbreviations. Fleiss’ kappa , Cohen’s kappa , Krippendorff’s alpha , F1 agreement, Pearson, Spearman, Majority agreement, Ke"
+I4-james,NIL,ABS,KCO,NIL,1,KCO|KFL|KAL|ICC|PA,,KCO:BODY|KFL:BODY|KAL:BODY|ICC:BODY|PA:BODY,0,"attempts to correct for chance agreement metrics. 2.3. Cohen’s Kappa Cohen’s kappa (Cohen, 1960) is one of the earliest and most commonly used IAA measures for categ"
+A3-swebench,NIL,ABS,NIL,NIL,1,,,,4,
+B2-harmmetric,NIL,ABS,PA,NIL,1,PA,,PA:BODY,0,ess affirmation responses within the class 10 Table 4: Agreement rates between harmfulness classifiers and human judgments on the manually labeled validation set of
+E2-red-teaming-ganguli,KFL,MM,KFL,KFL,1,KFL|PA,KFL|PA,KFL:BODY|PA:BODY,1,"ctions) consistent with [60]. In particular, we report Fleiss’s Kappa, a statistical measure of interannotator agreement that is bounded in [−∞, 1], where −∞ implies"
+F1-lost-in-simulation,NIL,ABS,NIL,NIL,1,,,,0,
+G3-measurement-imbalance,PA,INC,NIL,NIL,0,,,,0,
+H2-agentic-benchmark-best-practices,NIL,ABS,NIL,NIL,1,,,,0,
+A4-gaia,NIL,ABS,NIL,NIL,1,,,,0,
+A5-webarena,NIL,ABS,NIL,NIL,1,,,,0,
+A6-tau2bench,NIL,ABS,NIL,NIL,1,,,,0,
+I5-dialectal-toxicity,PA,INC,NIL,NIL,0,,,,0,
+C6-play-favorites,KAL,OK,KAL,KAL,1,KAL|PA,KAL|PA,KAL:BODY|PA:BODY,2,"annotator agreement on the entire dataset. The average Krippendorff’s alpha is 0.28 across all dimensions; however, as seen in Table 4, some dimensions have signific"
+D3-self-preference-bias,NIL,ABS,NIL,NIL,1,,,,0,
+C7-neurips-data-curation,ICC,OK,ICC,ICC,1,ICC,ICC,ICC:BODY,4,", consistent, averagemeasures intra-class coefficient (ICC) to assess the consistency of the raters’ evaluations of rubric elements measured on an ordinal scale acro"
+C8-legal-rag-judge,KAL,OK,KCO,NIL,0,KCO|KFL|KAL|PA,,KCO:BODY|KFL:BODY|KAL:BODY|PA:BODY,0,erance Computational Efficiency Multi-Rater Capability Cohen’s Kappa ✗ ✗ ✗ ✓ ✗ ✓ ✗ Percent Agreement ✗ ✗ ✗ ✓ ✗ ✓ ✓ Kendall’s Tau ✓ ✓ ✓ ✓ ✗ ✗ ✗ Spearman’s Rank ✓ ✓ ✓
+C9-aireg-bench,KAL,OK,KCO,KCO,0,KCO|KAL,KCO|KAL,KCO:BODY|KAL:BODY,3,erein violates specific Articles of the AIA. 0.86 0.85 Cohen’s kappa 0.8 0.77 0.77 0.72 0.83 0.73 0.7 0.73 0.62 0.6 0.4 0.2 0 T-5 -4o GP GPT o3 mini net 4 Pro lash m
+C10-mcp-agentbench,KFL,OK,KCO,KCO,0,KCO|KFL|PA,KCO|KFL|PA,KCO:BODY|KFL:BODY|PA:BODY,4,"aggregated human majority vote reached 91.67%, with a Cohen’s Kappa of 0.734. For inter-rater reliability on pass/fail decisions, Fleiss’ Kappa among the experts wa"
+I6-agentatlas,NIL,ABS,NIL,NIL,1,,,,2,
+C11-irr-llm-human-qualitative,KCO,OK,KCO,KCO,1,KCO,KCO,KCO:BODY,6,"pted an LLM to replicate manual coding, and calculated Cohen’s Kappa for inter-rater reliability. After optimizing model hyperparameters and prompts, the results sho"
+F5-illusion-of-progress,PA,INC,PA,NIL,0,PA,,PA:BODY,0,"measured by human evaluation and WebJudge, along with Agreement Rate (AR) between WebJudge and human evaluation. As shown in Table 2, Claude Computer Use 3.7 and Op"
+G4-rlhf-statistical-perspective,NIL,ABS,NIL,NIL,1,,,,0,
+E4-trustworthy-chatbot-eval,KFL,MM,KFL,KFL,1,KFL|PA,KFL,KFL:BODY|PA:BODY,1,"ma-3-70b vs GPT-4o 3.15 -1.27 4.56 2.75 -4.66 Table 4: Fleiss’ Kappa between four annotators on different evaluation axis: Th(esis), Org(anization), Re(asoning), Per"
+G5-three-models-rlhf-annotation,NIL,ABS,KCO,NIL,1,KCO|KFL|KAL|PA,,KCO:BODY|KFL:BODY|KAL:BODY|PA:BODY,0,"ree with one another, including specific measures like Cohen’s kappa , Fleiss’ kappa , and Krippendorff’s alpha [3]. These measures fit well with either the extensio"
+G6-length-bias,KFL,INC,KFL,NIL,0,KFL|PA,,KFL:POST_REFS|PA:POST_REFS,1,"we conducted an inter-rater reliability analysis using Fleiss’ Kappa, a standard metric for evaluating multi-rater categorical agreement. We illustrate this with the"
+G7-reward-model-eval-rlhf,NIL,ABS,NIL,NIL,1,,,,9,
+G8-how-humans-help-llms,NIL,ABS,PA,NIL,1,PA,,PA:BODY,0,"nsistency (Callison-Burch and Dredze, 2010), measuring inter-annotator agreement (IAA) through various metrics (Krippendorﬀ et al., 1989; Krippendorﬀ, 2004; Artstein"
+E5-cognitive-distortions,KFL,MM,KCO,KCO,0,KCO|KFL|PA,KCO|KFL,KCO:BODY|KFL:BODY|PA:BODY,9,ntroduce a dataset-agnostic evaluation framework using Cohen’s kappa as an effect size measure. This methodology allows for fair cross-dataset and cross-study compar
+D4-math-coherence-proxies,ICC,MM,KAL,ICC,1,KAL|ICC|PA,ICC,KAL:BODY|ICC:BODY|PA:BODY,3,erence while maintaining high inter-rater reliability (ICC > 0.92). The simplest evaluation approach achieves a comparable performance to the more complex approaches
+C12-artifact-copilot,KCO,MM,KCO,KCO,1,KCO|PA,KCO|PA,KCO:BODY|PA:BODY,1,"e initial independent badge-level judgments achieved a Cohen’s kappa of 0.85 [35], indicating strong inter-rater agreement. The final distribution consisted of 6 nob"
+A7-metr-timehorizon,NIL,ABS,NIL,NIL,1,,,,0,
+F2-meta-harness,NIL,ABS,NIL,NIL,1,,,,0,
+B3-near-miss,NIL,ABS,NIL,NIL,1,,,,0,
+H3-survey-llm-agent-eval,NIL,ABS,NIL,NIL,1,,,,0,
+A8-researcharena,NIL,ABS,NIL,NIL,1,,,,0,
+A9-agenticdatabench,NIL,ABS,NIL,NIL,1,,,,0,
+C13-indopref,KAL,OK,KAL,NIL,0,KAL|PA,,KAL:BODY|PA:BODY,0,"ian with strong inter-annotator agreement, measured by Krippendorff’s alpha. Our benchmark spans 10 diverse categories, enabling practitioners to identify LLMs’ fine"

@@ -1,0 +1,354 @@
+{
+  "schema": "knosys-judge-manifest/1",
+  "built_utc": "2026-10-23T16:42:30Z",
+  "instrument_sha": "898169aa26191f1c",
+  "stimulus_generation": "full document (bibliography retained)",
+  "stimulus_source": "stimulus_fulltext.json via extract.py + corpus.py (pymupdf 1.27.2.2/MuPDF 1.27.2)",
+  "judges": {
+    "nemotron": {
+      "context_length": 262144,
+      "tokenizer": "Other",
+      "top_provider_context_length": 202800,
+      "top_provider_max_completion_tokens": 182520,
+      "pinned_quantization": "fp4",
+      "endpoints_at_pin": [
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "BaseTen",
+          "context_length": 202800,
+          "max_completion_tokens": 182520,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "BaseTen",
+          "context_length": 202800,
+          "max_completion_tokens": 182520,
+          "quantization": "fp4"
+        }
+      ],
+      "n_endpoints_at_pin": 4,
+      "providers_at_pin": [
+        "BaseTen",
+        "DeepInfra"
+      ],
+      "n_providers_at_pin": 2,
+      "slug": "nvidia/nemotron-3-ultra-550b-a55b",
+      "providers": [
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "BaseTen",
+          "context_length": 202800,
+          "max_completion_tokens": 182520,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "BaseTen",
+          "context_length": 202800,
+          "max_completion_tokens": 182520,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "Venice",
+          "context_length": 256000,
+          "max_completion_tokens": 32768,
+          "quantization": "fp8"
+        }
+      ],
+      "n_providers": 5,
+      "provider_context_min": 202800,
+      "provider_context_max": 262144,
+      "quantizations_offered": [
+        "fp4",
+        "fp8"
+      ],
+      "measured": {
+        "largest_paper": "C7-neurips-data-curation",
+        "prompt_chars": 236480,
+        "prompt_tokens": 60423,
+        "chars_per_token": 3.914,
+        "served_by": "BaseTen"
+      }
+    },
+    "gemma": {
+      "context_length": 262144,
+      "tokenizer": "Gemma",
+      "top_provider_context_length": 262144,
+      "top_provider_max_completion_tokens": 16384,
+      "pinned_quantization": "fp8",
+      "endpoints_at_pin": [
+        {
+          "provider": "Parasail",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "SiliconFlow",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        }
+      ],
+      "n_endpoints_at_pin": 5,
+      "providers_at_pin": [
+        "DeepInfra",
+        "Parasail",
+        "SiliconFlow"
+      ],
+      "n_providers_at_pin": 3,
+      "slug": "google/gemma-4-31b-it",
+      "providers": [
+        {
+          "provider": "CoreWeave",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "Venice",
+          "context_length": 256000,
+          "max_completion_tokens": 8192,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "Chutes",
+          "context_length": 131072,
+          "max_completion_tokens": 65536,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "DekaLLM",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "unknown"
+        },
+        {
+          "provider": "Crusoe",
+          "context_length": 262144,
+          "max_completion_tokens": 262141,
+          "quantization": "bf16"
+        },
+        {
+          "provider": "Friendli",
+          "context_length": 262144,
+          "max_completion_tokens": 8192,
+          "quantization": "unknown"
+        },
+        {
+          "provider": "Novita",
+          "context_length": 262144,
+          "max_completion_tokens": 131072,
+          "quantization": "bf16"
+        },
+        {
+          "provider": "Parasail",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "Io Net",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "unknown"
+        },
+        {
+          "provider": "SambaNova",
+          "context_length": 131072,
+          "max_completion_tokens": 117964,
+          "quantization": "unknown"
+        },
+        {
+          "provider": "ModelRun",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp4"
+        },
+        {
+          "provider": "SiliconFlow",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        }
+      ],
+      "n_providers": 16,
+      "provider_context_min": 131072,
+      "provider_context_max": 262144,
+      "quantizations_offered": [
+        "bf16",
+        "fp4",
+        "fp8",
+        "unknown"
+      ],
+      "measured": {
+        "largest_paper": "C7-neurips-data-curation",
+        "prompt_chars": 236480,
+        "prompt_tokens": 59230,
+        "chars_per_token": 3.993,
+        "served_by": "DeepInfra"
+      }
+    },
+    "qwen": {
+      "context_length": 262144,
+      "tokenizer": "Qwen3",
+      "top_provider_context_length": 262144,
+      "top_provider_max_completion_tokens": 16384,
+      "pinned_quantization": "fp8",
+      "endpoints_at_pin": [
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "Parasail",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        }
+      ],
+      "n_endpoints_at_pin": 4,
+      "providers_at_pin": [
+        "DeepInfra",
+        "Parasail"
+      ],
+      "n_providers_at_pin": 2,
+      "slug": "qwen/qwen3-next-80b-a3b-instruct",
+      "providers": [
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 16384,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "Parasail",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "DeepInfra",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "fp8"
+        },
+        {
+          "provider": "Google",
+          "context_length": 262144,
+          "max_completion_tokens": 235929,
+          "quantization": "unknown"
+        }
+      ],
+      "n_providers": 5,
+      "provider_context_min": 262144,
+      "provider_context_max": 262144,
+      "quantizations_offered": [
+        "fp8",
+        "unknown"
+      ],
+      "measured": {
+        "largest_paper": "C7-neurips-data-curation",
+        "prompt_chars": 236480,
+        "prompt_tokens": 59351,
+        "chars_per_token": 3.984,
+        "served_by": "Parasail"
+      }
+    }
+  },
+  "replication": {
+    "min_context_tokens_required": 84999,
+    "derivation": "largest stimulus (C7-neurips-data-curation) measured at 60423 prompt tokens under the most token-dense of the three tokenizers, + 16384 output budget + 8192 margin",
+    "requirement": "Each judge must be served with a context window of at least 84999 tokens. A smaller window truncates the largest stimuli silently and the run is not a replication. Quantization must also match: the same slug served at a different quantization is a different function.",
+    "providers_below_requirement": [],
+    "pinned_quantizations": {
+      "nemotron": "fp4",
+      "gemma": "fp8",
+      "qwen": "fp8"
+    },
+    "quantization_requirement": "Each judge must be served at the quantization pinned here. The same slug at a different quantization is a different function, and OpenRouter's routing is not deterministic, so an unpinned run samples several numerically distinct raters under one name."
+  }
+}
