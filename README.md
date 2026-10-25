@@ -119,7 +119,6 @@ for t in test_*.py; do uv run python "$t"; done    # 165 checks
 | `papers_55.csv` | Roster mapping `paper_id` to `zotero_key` and category |
 | `full_scan_55papers.csv` | The author's Q1-Q4 codes for all 55 papers, with notes (Table A.2 in the paper) |
 | `author_codes_55.csv` | The same codes in the shape the analysis consumes |
-| `excerpts.json` | A verbatim supporting quotation for every code, so any code can be checked against its source |
 | `stimulus_hashes.csv` | SHA-256 of each extracted document: the shareable replication artifact |
 | `judge_manifest.json` | The three judges as recorded entities: model id, providers, context windows, quantizations |
 | `corpus.py` | Shared extraction library with the pinned-engine check |
@@ -133,7 +132,7 @@ for t in test_*.py; do uv run python "$t"; done    # 165 checks
 | `results_fulltext.failures.csv` | Failure ledger for the runs above (empty: no failures occurred) |
 | `alpha_report_Q1.txt` .. `_Q4.txt` | Output of `compute_alpha.py`, one report per coding dimension |
 | `validation_report_fulltext.txt` | Output of `validate.py` |
-| `audit_report.csv` | Output of `audit_codes.py` |
+| `audit_report.csv` | Output of `audit_codes.py`: per paper, which coefficient names appear in the full document, where, whether they are value-anchored, and whether that agrees with the author's code. This is the per-code evidence trail, re-derived mechanically rather than hand-assembled |
 | `test_*.py` | Offline regression tests (165 checks) |
 
 ## The coding instrument
