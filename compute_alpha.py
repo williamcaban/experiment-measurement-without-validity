@@ -36,6 +36,7 @@ show what repeated sampling buys.
 USAGE
   python3 compute_alpha.py [--results results.csv] [--author author_codes.csv]
                            [--out alpha_report.txt] [--question Q4]
+                           [--collapse]
 """
 
 from __future__ import annotations
@@ -60,6 +61,14 @@ VOCAB = {
 MODELS = ["nemotron", "gemma", "qwen"]
 THRESHOLD = 0.667   # tentative floor; 0.800 is Krippendorff's "reliable"
 MIN_ITEMS = 20      # below this an alpha is noise; the report says so
+
+# The paper also quotes a binary form of Q4, correct use versus misuse, because
+# that is the distinction its headline misuse rate rests on. Alpha on four codes
+# and alpha on two are different quantities, so the collapsed form is a separate
+# question with its own vocabulary rather than an overwrite of Q4.
+COLLAPSE = {
+    "Q4": {"OK": "OK", "MM": "MIS", "INC": "MIS", "ABS": "MIS"},
+}
 
 
 # --------------------------------------------------------------------------- #
@@ -163,6 +172,39 @@ def fleiss(matrix: np.ndarray, question: str) -> tuple[float | None, int]:
     return float((p_bar - p_e) / (1 - p_e)), blocked
 
 
+def install_collapse(question: str, rows: list[dict],
+                     author: dict[str, dict[str, str]]) -> str:
+    """Register a derived two-value question and rewrite the codes into it.
+
+    Done at the source so nothing downstream needs a special case: encode(),
+    alpha_of() and fleiss() read VOCAB[question] exactly as they always do, and
+    the report header names the derived question, so a reader can tell from the
+    report alone which vocabulary the number was computed on.
+
+    A code outside the source vocabulary passes through unmapped rather than
+    becoming blank, so it is still counted and listed as out-of-vocabulary
+    instead of being quietly reclassified as missing.
+    """
+    if question not in COLLAPSE:
+        raise SystemExit(f"FATAL: --collapse is defined for "
+                         f"{', '.join(sorted(COLLAPSE))} only, not {question}")
+    mapping = COLLAPSE[question]
+    uncovered = [c for c in VOCAB[question] if c not in mapping]
+    if uncovered:
+        raise SystemExit(f"FATAL: the {question} collapse map does not cover "
+                         f"{uncovered}; every code must map somewhere or the "
+                         f"alpha would silently rest on fewer cells")
+    derived = f"{question}-binary"
+    VOCAB[derived] = list(dict.fromkeys(mapping.values()))
+    for r in rows:
+        src = r.get(question, "")
+        r[derived] = mapping.get(src, src)
+    for codes in author.values():
+        src = codes.get(question, "")
+        codes[derived] = mapping.get(src, src)
+    return derived
+
+
 def build_matrix(codes: dict, papers: list[str], raters: list[str],
                  question: str) -> np.ndarray:
     return np.array([[encode(codes.get((p, r), ""), question) for p in papers]
@@ -187,12 +229,20 @@ def main() -> None:
     ap.add_argument("--author", default="author_codes_55.csv")
     ap.add_argument("--out", default="alpha_report.txt")
     ap.add_argument("--question", default="Q4", choices=sorted(VOCAB))
+    ap.add_argument("--collapse", action="store_true",
+                    help="merge the question's codes into the two-value form "
+                         "the paper quotes as its headline figure (Q4: OK vs "
+                         "MIS); reported as a separate question, not as Q4")
     a = ap.parse_args()
 
     res_path = HERE / a.results
     rows = load_results(res_path)
     author = load_author(HERE / a.author)
     failures = load_failures(Path(str(res_path) + ".failures.csv"))
+
+    # Must follow load_author, which populates one key per question in VOCAB.
+    if a.collapse:
+        a.question = install_collapse(a.question, rows, author)
 
     runs = sorted({r["run"] for r in rows}, key=lambda s: (len(s), s))
     papers = sorted({r["paper_id"] for r in rows})

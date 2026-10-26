@@ -21,7 +21,7 @@ Reliability depends on what is being coded:
 | Q2 rater design | 0.371 | 0.348-0.387 |
 | Q3 measurement scale | 0.525 | 0.514-0.578 |
 | Q4 failure-mode judgment | 0.536 | 0.515-0.568 |
-| Q4 collapsed to correct vs. misuse | 0.549 | |
+| Q4 collapsed to correct vs. misuse | 0.549 | 0.489-0.566 |
 
 Alpha is the median over five independent runs; the matrix is complete (four
 raters x 55 papers, no missing cells). The determinate question of *which*
@@ -112,6 +112,8 @@ uv run python second_rater.py --status    # progress without making API calls
 
 uv run python validate.py --results results_fulltext.csv   # gate: binding, vocabulary, conformance, grounding
 uv run python compute_alpha.py --question Q1               # any of Q1..Q4 (default Q4)
+uv run python compute_alpha.py --question Q4 --collapse \
+    --out alpha_report_Q4_binary.txt                       # correct vs. misuse, the headline figure
 ```
 
 `RUN_ID=n` selects the run; `STIMULUS_FILE`, `SUBSAMPLE_FILE`, `RESULTS_FILE`
@@ -150,6 +152,7 @@ for t in test_*.py; do uv run python "$t"; done    # 165 checks
 | `results_fulltext.csv` | All 825 ratings (55 papers x 3 raters x 5 runs) |
 | `results_fulltext.failures.csv` | Failure ledger for the runs above (empty: no failures occurred) |
 | `alpha_report_Q1.txt` .. `_Q4.txt` | Output of `compute_alpha.py`, one report per coding dimension |
+| `alpha_report_Q4_binary.txt` | Output of `compute_alpha.py --collapse`: Q4 reduced to correct vs. misuse, which is the distinction the 80% headline rate rests on. Its prevalence section is where the 60.7%-84.4% rater range can be read off directly |
 | `validation_report_fulltext.txt` | Output of `validate.py` |
 | `audit_report.csv` | Output of `audit_codes.py`: per paper, which coefficient names appear in the full document, where, whether they are value-anchored, and whether that agrees with the author's code. This is the per-code evidence trail, re-derived mechanically rather than hand-assembled |
 | `test_*.py` | Offline regression tests (165 checks) |
